@@ -250,39 +250,39 @@ So now we've saved the code to a document, and compiled it. Let's take a look.
 cat ./cpp/print_loop.asm
 ```
 
-```
-## 	.section	__TEXT,__text,regular,pure_instructions
-## 	.build_version macos, 11, 0	sdk_version 11, 3
-## 	.globl	_main                           ## -- Begin function main
-## 	.p2align	4, 0x90
-## _main:                                  ## @main
-## 	.cfi_startproc
-## ## %bb.0:
-## 	pushq	%rbp
-## 	.cfi_def_cfa_offset 16
-## 	.cfi_offset %rbp, -16
-## 	movq	%rsp, %rbp
-## 	.cfi_def_cfa_register %rbp
-## 	movl	$0, -4(%rbp)
-## 	movl	$1, -8(%rbp)
-## LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
-## 	cmpl	$3, -8(%rbp)
-## 	jg	LBB0_4
-## ## %bb.2:                               ##   in Loop: Header=BB0_1 Depth=1
-## 	movl	-8(%rbp), %eax
-## 	movl	%eax, -12(%rbp)
-## ## %bb.3:                               ##   in Loop: Header=BB0_1 Depth=1
-## 	movl	-8(%rbp), %eax
-## 	addl	$1, %eax
-## 	movl	%eax, -8(%rbp)
-## 	jmp	LBB0_1
-## LBB0_4:
-## 	movl	-8(%rbp), %eax
-## 	popq	%rbp
-## 	retq
-## 	.cfi_endproc
-##                                         ## -- End function
-## .subsections_via_symbols
+```asm
+	.section	__TEXT,__text,regular,pure_instructions
+	.build_version macos, 11, 0	sdk_version 11, 3
+	.globl	_main                           ## -- Begin function main
+	.p2align	4, 0x90
+_main:                                  ## @main
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	movl	$0, -4(%rbp)
+	movl	$1, -8(%rbp)
+LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
+	cmpl	$3, -8(%rbp)
+	jg	LBB0_4
+## %bb.2:                               ##   in Loop: Header=BB0_1 Depth=1
+	movl	-8(%rbp), %eax
+	movl	%eax, -12(%rbp)
+## %bb.3:                               ##   in Loop: Header=BB0_1 Depth=1
+	movl	-8(%rbp), %eax
+	addl	$1, %eax
+	movl	%eax, -8(%rbp)
+	jmp	LBB0_1
+LBB0_4:
+	movl	-8(%rbp), %eax
+	popq	%rbp
+	retq
+	.cfi_endproc
+                                        ## -- End function
+.subsections_via_symbols
 ```
 
 
@@ -401,9 +401,11 @@ What even is the quadratic formula? Well a quadratic formula is a mathematical f
 
 I know, never define a word by using the word in the definition! Stick with me. A quadratic (meaning square or 4 in latin) equation is an equation that fits the form of:
 
-$$
+<!-- $$
 	ax ^ 2 + bx + c = 0
-$$
+$$ --> 
+
+<div align="center"><img style="padding: 15px; background: white;" src="svg/72GlKDpN1j.svg"></div>
 
 1. `x` represents a variable.
 1. `a, \, b, \, c` represent known numbers; `a \not= 0`.
@@ -414,9 +416,11 @@ Shifting the values of `a, \, b, \, c` is what defines different quadratic funct
 
 Note that if a is equal to zero then the equation simply becomes linear: 
 
-$$
+<!-- $$
 	bx + c = 0
-$$
+$$ --> 
+
+<div align="center"><img style="padding: 15px; background: white;" src="svg/wH1jrMS6BS.svg"></div>
 
 Let's try it out and visualise. Here we define a function to calculate quadratic coordinates.
 
@@ -528,9 +532,11 @@ Note if your parabola is shifted above the x-axis it's possible you have no real
 
 Let's implement this formula for calculating a solution to the above shown parabola.
 
-$$
+<!-- $$
 	x = \frac{-b \pm \sqrt{b ^ 2 - 4ac}}{2a}
-$$
+$$ --> 
+
+<div align="center"><img style="padding: 15px; background: white;" src="svg/A3WlitXK3W.svg"></div>
 
 
 ```cpp
