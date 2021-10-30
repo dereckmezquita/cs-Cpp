@@ -1,4 +1,67 @@
-# Introduction to `C++` <img src="./figures/project-logo.png" width="100" align="right">
+---
+title: "Learning Cpp"
+author: "Dereck de Mézquita"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+knit: (function(inputFile, encoding) { 
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file=file.path(dirname(inputFile), "figures", "cs-Cpp.html")) })
+output:
+  html_document: 
+    fig_caption: yes
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    # code_folding: hide
+params:
+  rmd: cs-Cpp.Rmd
+editor_options: 
+  chunk_output_type: inline
+---
+
+<a download="cs-Cpp.Rmd" href="`r base64enc::dataURI(file = params$rmd, mime = 'text/rmd', encoding = 'base64')`">R Markdown source file (to produce this document)</a>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 7, fig.align = "center")
+```
+
+```{r cpp-engine, include=FALSE}
+knitr::knit_engines$set(Cpp = function(options) {
+	out_dir <- "./cpp"
+	i <- max(length(list.files(out_dir, pattern = "*cpp")))
+	
+	execname <- stringr::str_interp('./cpp/chunk_${i}')
+	filename <- stringr::str_interp('${execname}.cpp')
+	
+	code <- paste(options$code, collapse = '\n')
+	
+	system2(
+		'echo', c(shQuote(code), ' > ', filename), stdout = TRUE
+	)
+	
+	system2(
+		'/usr/bin/c++', c(filename, ' -o ', execname)
+	)
+	
+	exec <- system2(
+		execname, stdout = TRUE
+	)
+	
+	system2(
+		'rm', execname
+	)
+	
+	knitr::engine_output(options, code, exec)
+})
+```
+
+```{r libraries, warning=FALSE, message=FALSE}
+library("Rcpp")
+library("ggplot2")
+```
+
+# cs-Cpp
 
 ## About this course
 
@@ -18,8 +81,7 @@ Let's start with something simple; demonstrate that we can indeed write and comp
 
 Here is a function which generates the Fibonacci sequence to `n` elements.
 
-
-```cpp
+```{Rcpp cpp-forloop-func, cache=TRUE}
 # include <Rcpp.h>
 using namespace Rcpp;
 
@@ -38,17 +100,11 @@ NumericVector fibonacci_cpp(int n) {
 }
 ```
 
-
-```r
+```{r print-cpp-fib}
 fibonacci_cpp(20)
 ```
 
-```
-##  [1]    0    1    1    2    3    5    8   13   21   34   55   89  144  233  377
-## [16]  610  987 1597 2584 4181
-```
-
-## About `C++`
+# Introduction to `C++`
 
 `C++` is a language invented by Bjarne Stroustrup in 1979. It is based on the `C` language and can be summarised as `C` with classes; object oriented programming.
 
@@ -56,17 +112,12 @@ fibonacci_cpp(20)
 
 Printing "hello world" in typical `C++` would look something like this:
 
-
-```cpp
+```{Cpp cpp-hello}
 #include <iostream>
 
 int main() {
   std::cout << "Hello World!" << std::endl;
 }
-```
-
-```
-## Hello World!
 ```
 
 `C++` is written in files with a `.cpp` extension. The output you see above was generated with our custom chunk engine, you can find the standalone code again in the "./cpp/" directory.
@@ -91,8 +142,7 @@ A basic `C++` document would like this; note the function structure - parenthesi
 
 **Note**: comments are written with `//` or for multi-line between `/* comment here */`.
 
-
-```cpp
+```{Cpp cpp-structure}
 #include <iostream> // library
 
 int main() { // declare the type returned; and main function
@@ -122,8 +172,7 @@ Indeed I've set this all up to be compiled from the code chunks in this document
 
 So what you typically do as we said; is we write the progamme, let's write one:
 
-
-```cpp
+```{Cpp cpp-hello-world, eval=FALSE}
 #include <iostream>
 
 int main() {
@@ -131,16 +180,11 @@ int main() {
 }
 ```
 
-```
-## Hello world.
-```
-
 Ok now save the above to a text file with the extension `.cpp`.
 
 Now try this command in your terminal:
 
-
-```bash
+```{bash cpp-compile, eval=FALSE}
 c++ programme_name.cpp -o programme_name
 ```
 
@@ -148,8 +192,7 @@ What are we doing there? Well we're compiling the programme from the text file, 
 
 So let's try it:
 
-
-```bash
+```{bash cat-hello}
 echo '#include <iostream>
 
 int main() {
@@ -161,8 +204,7 @@ c++ ./cpp/hello.cpp -o ./cpp/hello
 
 So now we should have our programme in the cpp directory let's take a look:
 
-
-```bash
+```{bash run-hello}
 ls ./cpp/hello*
 
 echo ''
@@ -170,17 +212,6 @@ echo ''
 cat ./cpp/hello.cpp
 
 rm ./cpp/hello
-```
-
-```
-## ./cpp/hello
-## ./cpp/hello.cpp
-## 
-## #include <iostream>
-## 
-## int main() {
-## 	std::cout << "Hello world." << std::endl;
-## }
 ```
 
 The text file is there and we've compiled it.
@@ -191,8 +222,7 @@ Indeed we are using `C++` code to talk to the comptuer. `C++` has features and c
 
 If you want to write a bit of code that will be repeated n amount of times, in `C++` you would you something called a for loop. It looks a little something like this:
 
-
-```cpp
+```{Rcpp cpp-for-loop, eval=FALSE}
 int times = 100;
 for(int i = 0; i < times; i++) {
 	// do something
@@ -207,8 +237,7 @@ Why don't we write a loop, compile it and then try to take a look at what the as
 
 Here is a simple for loop, prints hello followed by the iterator 3 times.
 
-
-```cpp
+```{Cpp cpp-hello-loop}
 #include <iostream>
 
 int main() {
@@ -218,17 +247,10 @@ int main() {
 }
 ```
 
-```
-## Hello 1
-## Hello 2
-## Hello 3
-```
-
 Here we echo the code into a document and then compile it. Note the `-S` argument this tells the compiler to output assembly code.
 
 
-
-```bash
+```{bash cat-hello-loop}
 echo 'int main() {
 	int i;
 	for(i = 1; i <= 3; i++) {
@@ -245,44 +267,8 @@ So now we've saved the code to a document, and compiled it. Let's take a look.
 
 **Note**: we've removed the print function and `<iostream>` from the code, as this includes a whole library which we don't really need. We just want to see what for loop looks like in assembly.
 
-
-```bash
+```{bash print-assembly-loop}
 cat ./cpp/print_loop.asm
-```
-
-```
-## 	.section	__TEXT,__text,regular,pure_instructions
-## 	.build_version macos, 11, 0	sdk_version 11, 3
-## 	.globl	_main                           ## -- Begin function main
-## 	.p2align	4, 0x90
-## _main:                                  ## @main
-## 	.cfi_startproc
-## ## %bb.0:
-## 	pushq	%rbp
-## 	.cfi_def_cfa_offset 16
-## 	.cfi_offset %rbp, -16
-## 	movq	%rsp, %rbp
-## 	.cfi_def_cfa_register %rbp
-## 	movl	$0, -4(%rbp)
-## 	movl	$1, -8(%rbp)
-## LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
-## 	cmpl	$3, -8(%rbp)
-## 	jg	LBB0_4
-## ## %bb.2:                               ##   in Loop: Header=BB0_1 Depth=1
-## 	movl	-8(%rbp), %eax
-## 	movl	%eax, -12(%rbp)
-## ## %bb.3:                               ##   in Loop: Header=BB0_1 Depth=1
-## 	movl	-8(%rbp), %eax
-## 	addl	$1, %eax
-## 	movl	%eax, -8(%rbp)
-## 	jmp	LBB0_1
-## LBB0_4:
-## 	movl	-8(%rbp), %eax
-## 	popq	%rbp
-## 	retq
-## 	.cfi_endproc
-##                                         ## -- End function
-## .subsections_via_symbols
 ```
 
 
@@ -290,8 +276,7 @@ In summary from the above we can see how compiling works. You write some code th
 
 The command would look something like this as we used above:
 
-
-```bash
+```{bash compile-assembly, eval=FALSE}
 c++ ./cpp/print_loop.cpp -o ./cpp/print_loop -S
 ```
 
@@ -310,8 +295,7 @@ The basic data types we'll deal with are:
 
 Let's start with some numbers. You can declare a number first, then attribute a value. The important step with anything in `C++` is delcaring the type.
 
-
-```cpp
+```{Cpp cpp-types}
 #include <iostream>
 
 int main() {
@@ -335,13 +319,6 @@ int main() {
 }
 ```
 
-```
-## 1
-## 2
-## 131
-## 133
-```
-
 As you can see our variable `yeet` was declared and then set to equal 1, then subsequently equal to two and printed again.
 
 **Note**: adding and arithmetic functions are as natural as +/-. Let's go over some maths yes?
@@ -357,8 +334,7 @@ In `C++` we have these as the following primitive arithmetic operators. Primitiv
 - `/` division.
 - `%` modulo; gets the remainder after the division.
 
-
-```cpp
+```{Cpp operators}
 #include <iostream>
 
 int main() {
@@ -381,14 +357,6 @@ int main() {
 }
 ```
 
-```
-## 20
-## 18
-## 54
-## 27
-## 0
-```
-
 
 Notice in the last operation I put `(int)` before taking modulo 3, this is something called type casing and we will learn more about it in the future.
 
@@ -405,12 +373,12 @@ $$
 	ax ^ 2 + bx + c = 0
 $$
 
-1. `x` represents a variable.
-1. `a, \, b, \, c` represent known numbers; `a \not= 0`.
+1. \(x\) represents a variable.
+1. \(a, \, b, \, c\) represent known numbers; \(a \not= 0\).
 
 What's going on in this equation to put things simply; you input a value for `x` and you get `y` back. You can then plot these!
 
-Shifting the values of `a, \, b, \, c` is what defines different quadratic functions.
+Shifting the values of \(a, \, b, \, c\) is what defines different quadratic functions.
 
 Note that if a is equal to zero then the equation simply becomes linear: 
 
@@ -426,8 +394,7 @@ Note the `using namespace Rcpp;` line; this means we can directly use the librar
 
 Let's dissect the following code. This is 99% `C++` with a little bit of `Rcpp` in there just for getting back the function in here.
 
-
-```cpp
+```{Rcpp quad-return-y}
 #include <Rcpp.h>
 #include <vector>
 
@@ -457,8 +424,7 @@ Let's then calculate the coordinates for a quadratic function of the following p
 1. `b = 0`
 1. `c = 0`
 
-
-```r
+```{r run-quady}
 a <- 1
 b <- 0
 c <- 0
@@ -471,17 +437,7 @@ df <- data.frame(x = x, y = y)
 head(df, 5)
 ```
 
-```
-##     x   y
-## 1 -20 400
-## 2 -19 361
-## 3 -18 324
-## 4 -17 289
-## 5 -16 256
-```
-
-
-```r
+```{r plot-classic-quadratic}
 if(df$y[which.max(abs(df$y))] > 0) {
 	lim <- c(-15, NA)
 } else {
@@ -495,12 +451,9 @@ ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
 	ggplot2::labs(title = "A classic quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="./figures/cs-Cpp_files/figure-html/plot-classic-quadratic-1.png" style="display: block; margin: auto;" />
-
 Notice how if we shift the values we move the plot around:
 
-
-```r
+```{r plot-shifted-quadratic}
 a <- 1.4
 b <- 40
 c <- -4
@@ -516,8 +469,6 @@ ggplot2::ggplot(df, ggplot2::aes(x, y)) +
 	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="./figures/cs-Cpp_files/figure-html/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" />
-
 So in the examples above we're asking the formula to give us back the `y` values for an array of `x`s.
 
 Notice how the parabola at some point crosses the x axis. At this point y really does equal 0. This is called a solution, or a root to this equation. The equation is defined by the a, b and c constants in the context of the quadratic formula shown before.
@@ -532,8 +483,7 @@ $$
 	x = \frac{-b \pm \sqrt{b ^ 2 - 4ac}}{2a}
 $$
 
-
-```cpp
+```{Rcpp solve-quadratic}
 #include <Rcpp.h>
 #include <math.h>
 using namespace Rcpp;
@@ -552,19 +502,13 @@ std::vector<double> quadraticRoots(double a, double b, double c) {
 
 Wonderful as we can see the roots or solutions to this quadratic formula are these! Note that if you were to plot these as points on the graph where these correspond to the x value (if y = 0) then you would find that these are indeed the points where the parabola's arms cross the x-axis.
 
-
-```r
+```{r print-quad-solution}
 quadraticRoots(a, b, c)
-```
-
-```
-## [1]   0.09965243 -28.67108100
 ```
 
 Here's the same plot again, with the points we just calculated as red circles! Amazing!
 
-
-```r
+```{r plot-quadratic-solutions}
 df2 <- data.frame(x = quadraticRoots(a, b, c), y = rep(0))
 
 ggplot2::ggplot() +
@@ -573,6 +517,4 @@ ggplot2::ggplot() +
 	ggplot2::geom_hline(yintercept = -4, linetype = "dashed", colour = "goldenrod", size = 1) +
 	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
-
-<img src="./figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" />
 
