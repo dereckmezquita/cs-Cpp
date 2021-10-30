@@ -499,7 +499,7 @@ ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
 	ggplot2::labs(title = "A classic quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="./figures/cs-Cpp_files/figure-html/plot-classic-quadratic-1.png" style="display: block; margin: auto;" />
+<img src="/figures/cs-Cpp_files/figure-html/plot-classic-quadratic-1.png" style="display: block; margin: auto;" />
 
 Notice how if we shift the values we move the plot around:
 
@@ -520,7 +520,7 @@ ggplot2::ggplot(df, ggplot2::aes(x, y)) +
 	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="./figures/cs-Cpp_files/figure-html/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" />
+<img src="/figures/cs-Cpp_files/figure-html/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" />
 
 So in the examples above we're asking the formula to give us back the `y` values for an array of `x`s.
 
@@ -580,5 +580,5 @@ ggplot2::ggplot() +
 	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="./figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" />
+<img src="/figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" />
 
