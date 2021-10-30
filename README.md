@@ -408,11 +408,11 @@ $$ -->
 <div align="center"><img style="padding: 15px; background: white;" src="svg/72GlKDpN1j.svg"></div>
 
 1. `x` represents a variable.
-1. `a, \, b, \, c` represent known numbers; `a \not= 0`.
+1. `a, b, c` represent known numbers; `a \not= 0`.
 
 What's going on in this equation to put things simply; you input a value for `x` and you get `y` back. You can then plot these!
 
-Shifting the values of `a, \, b, \, c` is what defines different quadratic functions.
+Shifting the values of `a, b, c` is what defines different quadratic functions.
 
 Note that if a is equal to zero then the equation simply becomes linear: 
 
