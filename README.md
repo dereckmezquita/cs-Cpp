@@ -335,11 +335,9 @@ You might be thinking if we only have two symbols 0 and 1, how can we count high
 
 Using bits in different combinations to represent numbers is something similar to what we already do with our own number system. Imagine 0 - 9; the numbers 1, 2 and 3 can be all placed next to each other to represent what we instinctively know as one-hundred twenty three.
 
-<!-- $$
+$$
 	123
-$$ --> 
-
-<div align="center"><img style="padding: 15px; background: white; color: #F34B7D;" src="https://render.githubusercontent.com/render/math?math=%09123"></div>
+$$
 
 <div align="center"><img style="padding: 15px; background: white;" src="svg/52kZTYSyeo.svg"></div>
 
