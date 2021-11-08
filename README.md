@@ -494,7 +494,7 @@ $$ -->
 <div align="center"><img src="svg/vXE04zzSIW.svg.png"></div>
 
 1. `x` represents a variable.
-1. `a, b, c` represent known numbers; `a \not= 0`.
+1. `a, b, c` represent known numbers; `a != 0`.
 
 What's going on in this equation to put things simply; you input a value for `x` and you get `y` back. You can then plot these!
 
