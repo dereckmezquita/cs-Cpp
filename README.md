@@ -321,7 +321,7 @@ We also work with other kinds of numbers, decimal numbers; technically base 10 n
 	0,\,1,\,2,\,3,\,4,\,5,\,6,\,7,\,8,\,9
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/BNiS2Kzvhr.svg"></div>
+<div align="center"><img src="svg/BNiS2Kzvhr.svg.png"></div>
 
 However computers don't speak the same language as us. Their language is much more simple. Computers use a base 2 system or known as binary. Indeed, they count with two symbols. For a computer a single value, either a 0 or 1, is known as a bit; this is derived from the combination of two words binary and digits.
 
@@ -339,7 +339,7 @@ Using bits in different combinations to represent numbers is something similar t
 	123
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/52kZTYSyeo.svg"></div>
+<div align="center"><img src="svg/52kZTYSyeo.svg.png"></div>
 
 Note that each digit in this number represents a place of value: 1 - hundreds place, 2 tens place, and 3 the ones place. So the solution here:
 
@@ -347,7 +347,7 @@ Note that each digit in this number represents a place of value: 1 - hundreds pl
 	123 = 100 \times 1 + 10 \times 2 + 1 \times 3
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/Z9tMp0gQpc.svg"></div>
+<div align="center"><img src="svg/Z9tMp0gQpc.svg.png"></div>
 
 The binary system is the same expect they don't use 9 symbols but 2! We have the number 10 to represent our 10 symbols (0 - 9) and the 2 the two of the computer (0 - 1). These exponents are in essence telling us how many values each place can represent; 10 ^ 2 = 100.
 
@@ -356,7 +356,7 @@ The binary system is the same expect they don't use 9 symbols but 2! We have the
 	 2 ^ 2, 2 ^ 1, 2 ^ 0 
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/qgPiL2eAbx.svg"></div>
+<div align="center"><img src="svg/qgPiL2eAbx.svg.png"></div>
 
 So we humans have ones place, tens, then hundreds place. Computers with their binary systems have ones place, twos place, and fours place. Simply resolve the above expressions.
 
@@ -491,7 +491,7 @@ I know, never define a word by using the word in the definition! Stick with me. 
 	ax ^ 2 + bx + c = 0
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/vXE04zzSIW.svg"></div>
+<div align="center"><img src="svg/vXE04zzSIW.svg.png"></div>
 
 1. `x` represents a variable.
 1. `a, b, c` represent known numbers; `a \not= 0`.
@@ -506,7 +506,7 @@ Note that if a is equal to zero then the equation simply becomes linear:
 	bx + c = 0
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/LJfYOEmbYs.svg"></div>
+<div align="center"><img src="svg/LJfYOEmbYs.svg.png"></div>
 
 Let's try it out and visualise. Here we define a function to calculate quadratic coordinates.
 
@@ -622,7 +622,7 @@ Let's implement this formula for calculating a solution to the above shown parab
 	x = \frac{-b \pm \sqrt{b ^ 2 - 4ac}}{2a}
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/5fksnRSUI6.svg"></div>
+<div align="center"><img src="svg/5fksnRSUI6.svg.png"></div>
 
 
 ```cpp
