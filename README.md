@@ -339,6 +339,8 @@ Using bits in different combinations to represent numbers is something similar t
 	123
 $$ --> 
 
+<div align="center"><img style="padding: 15px; background: white; color: #F34B7D;" src="https://render.githubusercontent.com/render/math?math=%09123"></div>
+
 <div align="center"><img style="padding: 15px; background: white;" src="svg/52kZTYSyeo.svg"></div>
 
 Note that each digit in this number represents a place of value: 1 - hundreds place, 2 tens place, and 3 the ones place. So the solution here:
