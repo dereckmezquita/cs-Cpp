@@ -329,7 +329,7 @@ The reason for such a simple system is because of the fact that computers are bu
 
 Here we represent counting with a single bit. We are limited to counting with two symbols on or off, or 0 to 1. Let this dot represent a "light bulb", yellow means it's on or 1.
 
-<img src="/figures/cs-Cpp_files/figure-html/lightbulb-one-bit-1.png" style="display: block; margin: auto;" align="center" />
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/lightbulb-one-bit-1.png" style="display: block; margin: auto;" align="center" /></div>
 
 You might be thinking if we only have two symbols 0 and 1, how can we count higher than 1? Well we could use more than one bit (value 0/1) in different combinations to represent different values.
 
@@ -362,7 +362,7 @@ So we humans have ones place, tens, then hundreds place. Computers with their bi
 
 If we have 1 bit we can count from 0 to 1. How high could we count if we have three bits?
 
-<img src="/figures/cs-Cpp_files/figure-html/lightbulb-three-bits-1.png" style="display: block; margin: auto;" align="center" />
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/lightbulb-three-bits-1.png" style="display: block; margin: auto;" align="center" /></div>
 
 The above illustration shows us what it would be like to count with 3 bits. What we did was organise our bits in all possible combinations and these can be used to represent a numerical value. Note that we start counting at 0 and thus we can only get as high as 7 if we have 3 bits. The more bits you have the higher you can count.
 
@@ -585,7 +585,7 @@ ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
 	ggplot2::labs(title = "A classic quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="/figures/cs-Cpp_files/figure-html/plot-classic-quadratic-1.png" style="display: block; margin: auto;" align="center" />
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-classic-quadratic-1.png" style="display: block; margin: auto;" align="center" /></div>
 
 Notice how if we shift the values we move the plot around:
 
@@ -606,7 +606,7 @@ ggplot2::ggplot(df, ggplot2::aes(x, y)) +
 	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="/figures/cs-Cpp_files/figure-html/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" align="center" />
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" align="center" /></div>
 
 So in the examples above we're asking the formula to give us back the `y` values for an array of `x`s.
 
@@ -664,7 +664,7 @@ ggplot2::ggplot() +
 	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<img src="/figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" align="center" />
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" align="center" /></div>
 
 ## Conditionals and logic
 
