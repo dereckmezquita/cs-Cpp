@@ -18,9 +18,8 @@ Let's start with something simple; demonstrate that we can indeed write and comp
 
 Here is a function which generates the Fibonacci sequence to `n` elements.
 
-
 ```cpp
-# include <Rcpp.h>
+#include <Rcpp.h>
 using namespace Rcpp;
 
 // 0, 1, 1, 2, 3, 5, 8, 13
@@ -38,7 +37,6 @@ NumericVector fibonacci_cpp(int n) {
 }
 ```
 
-
 ```r
 fibonacci_cpp(20)
 ```
@@ -55,7 +53,6 @@ fibonacci_cpp(20)
 `C++` is a low level, compiled, and powerful language. `C++` has become ubiquitous over the years and virtually all systems support compiling and running compiled `C++` code.
 
 Printing "hello world" in typical `C++` would look something like this:
-
 
 ```cpp
 #include <iostream>
@@ -103,7 +100,6 @@ int main() { // declare the type returned; and main function
 In our previous example we wrote: `std::cout << "Hello world!"`. This comes from the `iostream` library, the `std` signals that we're getting the `cout` function from that library. Finally, `<<` is an operator that pases the right hand statement as an input to the left hand.
 
 **Important: ALL* lines in `C++` must be ended with a semi-colon - ;**. All statements that is. *In some cases like the end curly of a function we do not for example.
-
 
 ## Workflow
 
@@ -207,7 +203,6 @@ Why don't we write a loop, compile it and then try to take a look at what the as
 
 Here is a simple for loop, prints hello followed by the iterator 3 times.
 
-
 ```cpp
 #include <iostream>
 
@@ -226,8 +221,6 @@ int main() {
 
 Here we echo the code into a document and then compile it. Note the `-S` argument this tells the compiler to output assembly code.
 
-
-
 ```bash
 echo 'int main() {
 	int i;
@@ -244,7 +237,6 @@ c++ ./cpp/print_loop.cpp -o ./cpp/print_loop.asm -S
 So now we've saved the code to a document, and compiled it. Let's take a look. 
 
 **Note**: we've removed the print function and `<iostream>` from the code, as this includes a whole library which we don't really need. We just want to see what for loop looks like in assembly.
-
 
 ```bash
 cat ./cpp/print_loop.asm
@@ -285,28 +277,125 @@ LBB0_4:
 .subsections_via_symbols
 ```
 
-
 In summary from the above we can see how compiling works. You write some code then you use a compiler programme which translates your code to assembly/machine code.
 
 The command would look something like this as we used above:
-
 
 ```bash
 c++ ./cpp/print_loop.cpp -o ./cpp/print_loop -S
 ```
 
-
 ## Data structures and data types
+
+### Types
 
 You've seen the `int` prefix in the code I've shown you before. Notably before the main function. As I said before all variables and functions must have their type declared. Here we'll go over some data types and data structures of `C++`.
 
-The basic data types we'll deal with are:
+The primitive data types, those built into `C++`, are:
 
 1. `int`: integer numbers.
-1. `double`: floating point or decimal numbers.
-1. `char`: individual characters.
+1. `double`: used for storing double precision floating point numbers/decimal numbers.
+1. `float`: stores single precision floating point numbers/decimal numbers.
+1. `char`: individual characters; corresponding to ASCII table value maxes out at 256.
 1. `string`: a sequence of characters.
+1. `wchar_t`: characters; corresponding to UNICODE table value maxes out at 65,536.
 1. `bool`: a true/false or logical - 0 and 1 can also be used and cast to a `bool`.
+1. `void`: no value, represents a valueless entity; typically used for functions that return nothing.
+
+Note that you can also have modified types; these are types with a modifier:
+
+1. `signed`: a number type which can be both positive and negative.
+1. `unsinged`: a number type which can only be positive.
+1. `short`: this is used for small integers in a range between -32768 and 32767.
+1. `long`: used for large numbers.
+
+### Information theory
+
+Different types have different properties, specifically referring to memory use. On most machines (depending on the architecture) a variable takes up anywhere from 1 byte to 12 bytes of memory (called memory allocation).
+
+What even is memory? What is information? How is information stored? When working with computers or even with other humans we all have to agree as to how we are going to represent information. One way of representing information is to count things on the digits of your hand. One finger is one, two is two etc. with this we can count to ten.
+
+We also work with other kinds of numbers, decimal numbers; technically base 10 numbers. This refers to the fact that there are 10 symbols which are used for counting. These are 0 to 9.
+
+<!-- $$
+	0,\,1,\,2,\,3,\,4,\,5,\,6,\,7,\,8,\,9
+$$ --> 
+
+<div align="center"><img style="padding: 15px; background: white;" src="svg/BNiS2Kzvhr.svg"></div>
+
+However computers don't speak the same language as us. Their language is much more simple. Computers use a base 2 system or known as binary. Indeed, they count with two symbols. For a computer a single value, either a 0 or 1, is known as a bit; this is derived from the combination of two words binary and digits.
+
+The reason for such a simple system is because of the fact that computers are built on electronic devices called transistors. Transistors are simply gates for electricity, they either let electricity through or don't; on or off.
+
+Here we represent counting with a single bit. We are limited to counting with two symbols on or off, or 0 to 1. Let this dot represent a "light bulb", yellow means it's on or 1.
+
+<img src="/figures/cs-Cpp_files/figure-html/lightbulb-one-bit-1.png" style="display: block; margin: auto;" />
+
+You might be thinking if we only have two symbols 0 and 1, how can we count higher than 1? Well we could use more than one bit (value 0/1) in different combinations to represent different values.
+
+Using bits in different combinations to represent numbers is something similar to what we already do with our own number system. Imagine 0 - 9; the numbers 1, 2 and 3 can be all placed next to each other to represent what we instinctively know as one-hundred twenty three.
+
+<!-- $$
+	123
+$$ --> 
+
+<div align="center"><img style="padding: 15px; background: white;" src="svg/52kZTYSyeo.svg"></div>
+
+Note that each digit in this number represents a place of value: 1 - hundreds place, 2 tens place, and 3 the ones place. So the solution here:
+
+<!-- $$
+	123 = 100 \times 1 + 10 \times 2 + 1 \times 3
+$$ --> 
+
+<div align="center"><img style="padding: 15px; background: white;" src="svg/Z9tMp0gQpc.svg"></div>
+
+The binary system is the same expect they don't use 9 symbols but 2! We have the number 10 to represent our 10 symbols (0 - 9) and the 2 the two of the computer (0 - 1). These exponents are in essence telling us how many values each place can represent; 10 ^ 2 = 100.
+
+<!-- $$
+	 10 ^ 2, 10 ^ 1, 10 ^ 0 \\
+	 2 ^ 2, 2 ^ 1, 2 ^ 0 
+$$ --> 
+
+<div align="center"><img style="padding: 15px; background: white;" src="svg/qgPiL2eAbx.svg"></div>
+
+So we humans have ones place, tens, then hundreds place. Computers with their binary systems have ones place, twos place, and fours place. Simply resolve the above expressions.
+
+If we have 1 bit we can count from 0 to 1. How high could we count if we have three bits?
+
+<img src="/figures/cs-Cpp_files/figure-html/lightbulb-three-bits-1.png" style="display: block; margin: auto;" />
+
+The above illustration shows us what it would be like to count with 3 bits. What we did was organise our bits in all possible combinations and these can be used to represent a numerical value. Note that we start counting at 0 and thus we can only get as high as 7 if we have 3 bits. The more bits you have the higher you can count.
+
+### Types and bytes
+
+As you might know 1 byte is equal to 8 bits. A single bit is the smallest unit of memory. We will typically work with whole bytes as that is what is accessible to us. Working with a single individual bit is in essence impossible, a variable must have an associated address which also occupies some amount of space.
+
+As an example note that an `int` is typically 4 bytes in size. This equates to: 4 bytes each 8 bits in size. So we have a total of 32 bits to store information in.
+
+Okay but what in the heck is a bit? A bit as you might know is the smallest unit by which we can measure memory. It is either on or off, 0 or 1. This is commonly known as binary! 
+
+So as we said before we have 32 0s and 1s in which to store information with an `int` data type. These can individually be in the 0 or 1 state. 
+
+How is information even stored? For example let's think we have 0s and 1s to work with.
+
+Typically these are the sizes of the following types:
+
+Data Type | Size (in bytes) | Range
+-- | -- | --
+short int | 2 | -32,768 to 32,767
+unsigned short int | 2 | 0 to 65,535
+unsigned int | 4 | 0 to 4,294,967,295
+int | 4 | -2,147,483,648 to 2,147,483,647
+long int | 4 | -2,147,483,648 to 2,147,483,647
+unsigned long int | 8 | 0 to 4,294,967,295
+long long int | 8 | -(2^63) to (2^63)-1
+unsigned long long int | 8 | 0 to 18,446,744,073,709,551,615
+signed char | 1 | -128 to 127
+unsigned char | 1 | 0 to 255
+float | 4 |  
+double | 8 |  
+long double | 12 |  
+wchar_t | 2 or 4 | 1 wide character
 
 Let's start with some numbers. You can declare a number first, then attribute a value. The important step with anything in `C++` is delcaring the type.
 
@@ -345,7 +434,6 @@ int main() {
 As you can see our variable `yeet` was declared and then set to equal 1, then subsequently equal to two and printed again.
 
 **Note**: adding and arithmetic functions are as natural as +/-. Let's go over some maths yes?
-
 
 ## Arithmetic operators
 
@@ -389,9 +477,7 @@ int main() {
 ## 0
 ```
 
-
 Notice in the last operation I put `(int)` before taking modulo 3, this is something called type casing and we will learn more about it in the future.
-
 
 ## Project: quadratic maths
 
@@ -405,14 +491,14 @@ I know, never define a word by using the word in the definition! Stick with me. 
 	ax ^ 2 + bx + c = 0
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/72GlKDpN1j.svg"></div>
+<div align="center"><img style="padding: 15px; background: white;" src="svg/vXE04zzSIW.svg"></div>
 
 1. `x` represents a variable.
-1. `a, b, c` represent known numbers; `a \not= 0`.
+1. `a, \, b, \, c` represent known numbers; `a \not= 0`.
 
 What's going on in this equation to put things simply; you input a value for `x` and you get `y` back. You can then plot these!
 
-Shifting the values of `a, b, c` is what defines different quadratic functions.
+Shifting the values of `a, \, b, \, c` is what defines different quadratic functions.
 
 Note that if a is equal to zero then the equation simply becomes linear: 
 
@@ -420,7 +506,7 @@ Note that if a is equal to zero then the equation simply becomes linear:
 	bx + c = 0
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/wH1jrMS6BS.svg"></div>
+<div align="center"><img style="padding: 15px; background: white;" src="svg/LJfYOEmbYs.svg"></div>
 
 Let's try it out and visualise. Here we define a function to calculate quadratic coordinates.
 
@@ -536,7 +622,7 @@ Let's implement this formula for calculating a solution to the above shown parab
 	x = \frac{-b \pm \sqrt{b ^ 2 - 4ac}}{2a}
 $$ --> 
 
-<div align="center"><img style="padding: 15px; background: white;" src="svg/A3WlitXK3W.svg"></div>
+<div align="center"><img style="padding: 15px; background: white;" src="svg/5fksnRSUI6.svg"></div>
 
 
 ```cpp
@@ -558,7 +644,6 @@ std::vector<double> quadraticRoots(double a, double b, double c) {
 
 Wonderful as we can see the roots or solutions to this quadratic formula are these! Note that if you were to plot these as points on the graph where these correspond to the x value (if y = 0) then you would find that these are indeed the points where the parabola's arms cross the x-axis.
 
-
 ```r
 quadraticRoots(a, b, c)
 ```
@@ -568,7 +653,6 @@ quadraticRoots(a, b, c)
 ```
 
 Here's the same plot again, with the points we just calculated as red circles! Amazing!
-
 
 ```r
 df2 <- data.frame(x = quadraticRoots(a, b, c), y = rep(0))
@@ -582,3 +666,146 @@ ggplot2::ggplot() +
 
 <img src="/figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" />
 
+## Conditionals and logic
+
+In `C++` conditonals and control flow is pretty straight forward as in most languages:
+
+
+```cpp
+#include <iostream>
+
+int main() {
+	bool yeet = true;
+	std::string mom_location = "home";
+	int people = 9;
+	
+	if(yeet & (mom_location != "home")) {
+		std::cout << "Mother's home no yeeting!" << std::endl;
+	} else if(((bool) people % 3) & yeet) {
+		std::cout << "We have enough yeets for all and mother is not home! YEET!" << std::endl;
+	} else {
+		std::cout << "We don't have enough yeets, but we have some!" << std::endl;
+	}
+}
+```
+
+```
+## We have enough yeets for all and mother is not home! YEET!
+```
+
+Above we demonstrate a number of concepts. Let's enumerate them here:
+
+- `==` a comparator, is left side equal to right side.
+- `!=` not equal to.
+- `>` greater than.
+- `<` less than.
+- `>=` greater than or equal to.
+- `<=` less than or equal to.
+
+Notice how we're catching if the first condition is not met then the second is checked, finally the last statement is executed as a catch all.
+
+If we start having a large number of conditions things can get convoluted. A `switch` statement is suggested.
+
+Note a switch must always evaluate to a integral type: `int`, `char`, `short`, `long`, `long long`, `enum`.
+
+The case keyword checks if the expression fed matches the value after. Break tells the computer to exit the block and not run the other cases. At the end there is a default case as a catch all.
+
+```cpp
+#include <iostream>
+#include <random>
+
+int main() {
+	int bedrooms = 9;
+	
+	switch(bedrooms) {
+		case 1 :
+			std::cout << "The house is cheap" << std::endl;
+			break;
+		case 2 :
+			std::cout << "Starter home" << std::endl;
+			break;
+		case 3 :
+			std::cout << "Mid sized house for a family." << std::endl;
+			break;
+		case 4 :
+			std::cout << "Okay big house!" << std::endl;
+			break;
+		default :
+			std::cout << "Why do you need so many rooms!?" << std::endl;
+			break;
+	}
+}
+```
+
+```
+## Why do you need so many rooms!?
+```
+
+## Logical operators
+
+Above you might have noticed I used `&` inside one of the if statements. This is a conditional operator. Conditional operators combine booleans and output a single condition. In essense these are different kinds of logic gates. 
+
+- true + true = true
+- true + false = false
+- false + true = false
+
+And so on.
+
+- `&&` and.
+- `||` or.
+- `!` not.
+
+
+```cpp
+#include <iostream>
+
+int main() {
+	std::cout << "1 < 2 && 2 > 3: " << (1 < 2 && 2 > 3) << std::endl;
+	std::cout << "1 < 2 || 2 > 3: " << (1 < 2 || 2 > 3) << std::endl;
+}
+```
+
+```
+## 1 < 2 && 2 > 3: 0
+## 1 < 2 || 2 > 3: 1
+```
+
+## Project: leap year?
+
+Let's write a small programme that checks if a given year is a leap year.
+
+
+```cpp
+#include <Rcpp.h>
+#include <vector>
+
+// [[Rcpp::export]]
+std::vector<double> quadraticReturnY(std::vector<double> x, double a, double b, double c) {
+	int n = x.size();
+	
+	std::vector<double> y(n);
+	
+	for(int i = 0; i < n; i++) {
+		y[i] = (a * (x[i] * x[i])) + (b * x[i]) + c;
+	}
+	
+	return y;
+}
+```
+
+```cpp
+#include <Rcpp.h>
+#include <iostream>
+#include <vector>
+
+// [[Rcpp::export]]
+void leapYear(std::vector<int> year) {
+	std::vector<bool> leap(year.size());
+	for(int i = 0; i < year.size(); i++) {
+		if(std::to_string(year[i]).length() != 4) {
+			std::cout << "Number is not length 4." << std::endl;
+			throw;
+		}
+	}
+}
+```
