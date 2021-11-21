@@ -996,7 +996,7 @@ $$
 
 From our simple plot and calculations above we see that point 1 (p1) does fall inside the circle and point 2 (p2) does not. 
 
-Okay wonderful! So what, we can calculate if some dots randomly fall inside our outside a circle? What does that have to do with calculating Pi?
+Okay wonderful! So what, we can calculate if some dots randomly fall inside or outside a circle? What does that have to do with calculating Pi?
 
 Well I'll tell you; if you tally up how many are inside and how many are outside, and you take the ratio those inside and the total you will find that number equals Pi. Don't believe me? Let's do it.
 
