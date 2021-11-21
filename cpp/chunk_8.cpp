@@ -12,4 +12,5 @@ int main() {
 	} else {
 		std::cout << "We don't have enough yeets, but we have some!" << std::endl;
 	}
+	return 0;
 }

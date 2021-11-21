@@ -18,4 +18,6 @@ int main() {
 	int xoot = yeet + zoot; // declare and set xoot as sum of yeet + zoot
 	
 	std::cout << xoot << std::endl;
+	
+	return 0;
 }

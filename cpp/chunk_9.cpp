@@ -21,4 +21,5 @@ int main() {
 			std::cout << "Why do you need so many rooms!?" << std::endl;
 			break;
 	}
+	return 0;
 }

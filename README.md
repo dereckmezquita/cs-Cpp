@@ -183,7 +183,7 @@ The text file is there and we've compiled it.
 
 You may be thinking what is a compiled programme anyway? Why do we have to "compile"? Well a compiler is simply a translator. All it does is it takes our `C++` code and translates it to what's commonly referred to as machine code; assembly. Assembly is an extremely low level langauge that then can be directly compiled to binary which is the true language of any computer.
 
-Indeed we are using `C++` code to talk to the comptuer. `C++` has features and concepts which allow us to more easily reason about what we want to do. 
+Indeed we are using `C++` code to talk to the computer. `C++` has features and concepts which allow us to more easily reason about what we want to do. 
 
 If you want to write a bit of code that will be repeated n amount of times, in `C++` you would you something called a for loop. It looks a little something like this:
 
@@ -197,7 +197,7 @@ for(int i = 0; i < times; i++) {
 
 That is just the pure for loop. Doesn't look so intimidating does it? We will go over it more in detail later. But it's telling the computer do what's inside these brackets n times.
 
-Let's you wanted to write assembly; baisically you would write a document and somewhere you'd tell it to JUMP back and repeat that code exactly with a new value for the iterator.
+Let's you wanted to write assembly; basically you would write a document and somewhere you'd tell it to JUMP back and repeat that code exactly with a new value for the iterator.
 
 Why don't we write a loop, compile it and then try to take a look at what the assembly code looks like?
 
@@ -210,6 +210,8 @@ int main() {
 	for(int i = 1; i <= 3; i++) {
 		std::cout << "Hello " << i << std::endl;
 	}
+	
+	return 0;
 }
 ```
 
@@ -421,6 +423,8 @@ int main() {
 	int xoot = yeet + zoot; // declare and set xoot as sum of yeet + zoot
 	
 	std::cout << xoot << std::endl;
+	
+	return 0;
 }
 ```
 
@@ -466,6 +470,8 @@ int main() {
 	
 	score = (int) score % 3;
 	std::cout << score << std::endl;
+	
+	return 0;
 }
 ```
 
@@ -686,6 +692,7 @@ int main() {
 	} else {
 		std::cout << "We don't have enough yeets, but we have some!" << std::endl;
 	}
+	return 0;
 }
 ```
 
@@ -734,6 +741,7 @@ int main() {
 			std::cout << "Why do you need so many rooms!?" << std::endl;
 			break;
 	}
+	return 0;
 }
 ```
 
@@ -762,6 +770,7 @@ And so on.
 int main() {
 	std::cout << "1 < 2 && 2 > 3: " << (1 < 2 && 2 > 3) << std::endl;
 	std::cout << "1 < 2 || 2 > 3: " << (1 < 2 || 2 > 3) << std::endl;
+	return 0;
 }
 ```
 
@@ -769,3 +778,421 @@ int main() {
 ## 1 < 2 && 2 > 3: 0
 ## 1 < 2 || 2 > 3: 1
 ```
+
+## Loops
+
+I've previously used some loops in my code. Let's go over them in more detail and see how they work and what kinds of loops we have available.
+
+- `while` much like an if statement; however, it will continue to execute the code inside until the condition is met.
+- `for` a loop with constructors, will continue while the defined index is still not meeting the condition; should increment to eventually meet the condition.
+
+Let's try a while loop. Here we will calculate the square of a number i from 0 to 9.
+
+
+```cpp
+#include <iostream>
+
+int main() {
+	int i = 0;
+	
+	while(i < 10) {
+		std::cout << i << " " << i * i << std::endl;
+		i++;
+	}
+	return 0;
+}
+```
+
+```
+## 0 0
+## 1 1
+## 2 4
+## 3 9
+## 4 16
+## 5 25
+## 6 36
+## 7 49
+## 8 64
+## 9 81
+```
+
+Let's take a look at a for loop now. A little more complicated but still straight forward. A for loop has four separate parts; the key word `for` is used to declare one:
+
+1. Initialisation, the counter: `int i = 0`
+1. Condition: `i < 20`
+1. Incrementor: `i++`
+
+Let's make one with slightly different parameters just to see what we can do.
+
+
+```cpp
+#include <iostream>
+
+int main() {
+	for(int i = 26; i > 14; i -= 4) {
+		std::cout << i << std::endl;
+	}
+	return 0;
+}
+```
+
+```
+## 26
+## 22
+## 18
+```
+
+Note we started not at 0 but 26, we're checking that our counter is not below 14, and finally decrementing by 4; you can use `-=`/`+=` or even `i--`/`i++`.
+
+## Debugging `C++`
+
+This is a very important section, if your an experiences programmer you know how important it can be to be able to read error messages and debug with break points or other. 
+
+Errors are often encountered for a few different kinds of reasons:
+
+- Compile time errors: found by the compiler.
+- Line-time errors: found by the linker when glueing code together.
+- Run-time errors: found by checks in the running programme.
+- Logic errors: errors caused by the programmer.
+
+### Compile time errors
+
+```cpp
+#include <iostream>
+
+int main() {
+	int yeet = "nope";
+	return 0;
+}
+```
+
+```
+## ./cpp/chunk_13.cpp:4:6: error: cannot initialize a variable of type 'int' with an lvalue of type 'const char [5]'
+##         int yeet = "nope";
+##             ^      ~~~~~~
+## 1 error generated.
+```
+
+The error message above shows very clearly what the mistake was. We're declaring a variable of type int and assigning a string type to it.
+
+### Link time errors
+
+Linker errors look a little more like this:
+
+```bash
+cat '#include <iostream>
+
+int Main() {
+	int yeet = 1;
+	
+	return 0;
+}' > ./cpp/linker-fail.cpp
+
+c++ ./cpp/linker-fail.cpp -o ./cpp/linker-fail
+```
+
+```
+## cat: #include <iostream>
+## 
+## int Main() {
+## 	int yeet = 1;
+## 	
+## 	return 0;
+## }: No such file or directory
+## Undefined symbols for architecture arm64:
+##   "_main", referenced from:
+##      implicit entry/start for main executable
+## ld: symbol(s) not found for architecture arm64
+## clang: error: linker command failed with exit code 1 (use -v to see invocation)
+```
+
+We can see that compilation works fine in this case but it fails when trying to link. 
+
+### Run time errors
+
+Just because a programme compiles and links does not mean it is safe. These error show up when running. An example of a common mistake is division by 0. The compiler nor the linker can catch these error but occur when the programme is executed and values are set. Another common mistake is opening a file that does not exist.
+
+
+```cpp
+#include <iostream>
+
+int main() {
+  
+  int width = 20;
+  int length = 0;
+  
+  int ratio = width / length;
+  
+  std::cout << ratio << std::endl;
+}
+```
+
+```
+## 0
+```
+
+### Logic errors
+
+These errors can be hard to spot depending on the complexity of the programme. Sometimes you might just forget that you need to return from an if statement, or that once all conditions are met you need to return from the whole programme etc.
+
+The possibilities are endless. Note that logic errors don't produce error messages. These are technically not errors to the computer, but simply do not do what we want the programme to do.
+
+There really is no example I can show you here. Just pay close attention to your logic and control structures.
+
+
+## Vectors and arrays
+
+So far we've been working with relatively simple data structures. In this section we will learn how to create, manage and manipulate vectors and arrays. Simply put these are data structures capable of holding more than one element of an object. For example we could have a vector of multiple numbers.
+
+### Vectors
+
+A vector is a template class built on arrays. It is a `C++` only construct. It is implemented as a dynamic array; meaning it can grow and shrink dynamically. Memory management is automatic and freed when the vector shrinks.
+
+Vectors can be passed to or returned from functions, they can be copied and assigned (these both perform deep copies in memory).
+
+Note that vectors do not decay to pointers but you can get a pointer to the data as `&vec[0]`. 
+
+Attached to vectors are a few extras. They always have attached their size or how many elements they hold and capacity or how many elements can be stored in the currently allocated block of memory.
+
+In order to use vectors you need to use the `vector` header from the `stl`.
+
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+	std::vector<int> vec(3);
+	
+	for(int i = 0; i < 3; i++) {
+		vec[i] = i * 3;
+	}
+	
+	std::cout << vec[1] << std::endl;
+}
+```
+
+```
+## 3
+```
+
+In the above example we are very simply initialising a vector of size 3. You can initialise with values all on one line.
+
+**Note**: this is a feature found in C++ 11 and up. Use the flag `-std=c++17` when compiling.
+
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+	std::vector<double> coord = {94.87422, 84.29302};
+	
+	std::cout << coord[0] << std::endl;
+}
+```
+
+```
+## 94.8742
+```
+
+Note the use of `[]` brackets to access elements of the vector. Indices start at 0.
+
+If you want to grow a vector use the method `.push_back()` on it. This modifies the vector in place and adds the element to the end.
+
+If you come from a functional programming language this may be a bit weird. But we don't need to make a copy on every modification, instead we can modify the object in place and just update that bit of memory.
+
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <random>
+#include <chrono>
+
+std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
+
+int main() {
+	std::vector<std::string> dna = {"ATG", "CAA"};
+	
+	std::cout << dna[dna.size() - 1] << std::endl;
+	
+	dna.push_back("HIYA");
+	
+	std::cout << dna[dna.size() - 1] << std::endl;
+	
+	dna.pop_back();
+	
+	std::cout << dna[dna.size() - 1] << std::endl;
+	
+	return 0;
+}
+```
+
+```
+## CAA
+## HIYA
+## CAA
+```
+
+Above we're creating a vector holding elements of type string. We're getting the size of the vector via the method `.size()`: `std::cout << dna.size() << std::endl;`. This is used to see what the last element of the vector as and print; what we observe is that the methods `.push_back()` and `.pop_back()` have an effect on the vector.
+
+We add the string "HIYA" at one point and then print the last element. Then we remove it and re-print the last element and we again see "CAA".
+
+Note that we do `dna.size() - 1` to get the last element of the vector. This is because the `.size()` method returns the number of elements of that vector and not the index!
+
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+	std::vector<int> vec = {2, 4, 3, 6, 1, 9};
+	
+	int even_sum = 0;
+	int odd_prod = 1;
+	
+	for(int i = 0; i < vec.size(); i++) {
+		if(vec[i] % 2 == 0) {
+			even_sum += vec[i];
+		} else {
+			odd_prod *= vec[i];
+		}
+	}
+	
+	std::cout << even_sum << std::endl;
+	std::cout << odd_prod << std::endl;
+	
+	return 0;
+}
+```
+
+```
+## 12
+## 27
+```
+
+
+## Project: calculate pi with Monte Carlo
+
+Let's calculate the constant Pi using Monte Carlo. The concept is very simple once understood. Imagine a square of width 10, inside this square you inscribe a circle of radius 5.
+
+
+```r
+par(bg = "black", mar = rep(0, 4)) # , col = "black", col.axis = "white"
+plot(c(-5, 5), c(-5, 5), type = "n", asp = 1, xlab = "", ylab = "")
+symbols(x = 0, y = 0, squares = 10, inches = FALSE, add = TRUE, fg = "white")
+symbols(x = 0, y = 0, circles = 5, inches = FALSE, add = TRUE, fg = "white")
+```
+
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/monte-carlo-circle-square-1.png" style="display: block; margin: auto;" /></div>
+
+Now throw some darts at this target, your dart must land within the square. When hitting the board there is a possibility it will be inside the circle, and if not then inside the square (edges). Note that without knowing Pi we can calculate if anyone of these points are inside the circle or not using the Pythagorean Theorem.
+
+<!-- $$
+	d = \sqrt{(x_2 - x_1) ^ 2 + (y_2 - y_1) ^ 2}
+$$ --> 
+
+<div align="center"><img src="svg/QJtQpgdOi2.svg.png"></div>
+
+We know the radius of the circle since it's inscribed in the square of width 10; 5. Thus we can calculate the distance from the centre of the construct, **if** the distance is greater than 5 then the point must be outside the circle and if less then it falls inside the circle.
+
+
+```r
+par(bg = "black", mar = rep(0, 4)) # , col = "black", col.axis = "white"
+plot(c(-5, 5), c(-5, 5), type = "n", asp = 1, xlab = "", ylab = "")
+symbols(x = 0, y = 0, squares = 10, inches = FALSE, add = TRUE, fg = "white")
+symbols(x = 0, y = 0, circles = 5, inches = FALSE, add = TRUE, fg = "white")
+
+points(3, 3, col = "green", pch = 19, cex = 2)
+points(4, 4, col = "red", pch = 19, cex = 2)
+```
+
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/monte-carlo-point-placement-1.png" style="display: block; margin: auto;" /></div>
+
+<!-- $$
+	radius = 5 \\
+	p_1 = (3,\,3) \\
+	p_2 = (4,\,4) \\
+	d_1 = \sqrt{(3 - 0) ^ 2 + (3 - 0) ^ 2} = 4.242641 \\
+	d_1 = \sqrt{(4 - 0) ^ 2 + (4 - 0) ^ 2} = 5.656854
+$$ --> 
+
+<div align="center"><img src="svg/dZgh9xsvrs.svg.png"></div>
+
+From our simple plot and calculations above we see that point 1 (p1) does fall inside the circle and point 2 (p2) does not. 
+
+Okay wonderful! So what, we can calculate if some dots randomly fall inside our outside a circle? What does that have to do with calculating Pi?
+
+Well I'll tell you; if you tally up how many are inside and how many are outside, and you take the ratio those inside and the total you will find that number equals Pi. Don't believe me? Let's do it.
+
+We will use some `Rcpp.h` sugar just to get back a `data.frame` and plot.
+
+
+```cpp
+#include <Rcpp.h>
+#include <random>
+#include <chrono>
+#include <math.h>
+
+using namespace Rcpp;
+
+std::mt19937_64 rng(std::chrono::steady_clock::now().time_since_epoch().count());
+
+// [[Rcpp::export]]
+List monteCarloPi(double iterations) {
+	NumericVector x(iterations);
+	NumericVector y(iterations);
+	NumericVector colour(iterations);
+	
+	double circle = 0;
+	double width = 1;
+	
+	for(int i = 0; i < iterations; i++) {
+		x[i] = std::uniform_real_distribution<double>(0, width)(rng);
+		y[i] = std::uniform_real_distribution<double>(0, width)(rng);
+		
+		if(std::sqrt(x[i] * x[i] + y[i] * y[i]) <= width) {
+			circle++;
+			colour[i] = 1;
+		} else {
+			colour[i] = 0;
+		}
+	}
+	
+	double pi = (circle / iterations) * 4.0;
+	
+	DataFrame df = DataFrame::create(_["x"] = x, _["y"] = y, _["colour"] = colour);
+	
+	return List::create(_["pi"] = pi, _["calc"] = df);
+}
+```
+
+Okay let's review what this code does. Note here I include the most robust way to get a random number that I've found. Other methods are limited by the byte size of the type generated thus max out at a certain size of random number. Here we're using a 64 bit type.
+
+We start by seeding with the time. We create x and y vectors, I also include a colour vector which will track if the coordinates fall inside our outside the circle.
+
+We define our tally with circle initially at 0 and the width of our geometric construct at 1. It really doesn't matter what width you choose so long as the numbers you generate are coherent with these sizes.
+
+A for loop allows us to randomly generate values for x and y for n times. In this loop we also tally those coordinates which fall inside the circle and increment the circle counter.
+
+Finally we are calculating for 1/4 of the circle's area thus our value is multiplied by 4. We add everything to a `data.frame` then a list and return to R.
+
+Below is the visual result!
+
+
+```r
+res <- monteCarloPi(100000)
+
+par(bg = "black", mar = c(0.75, 0.75, 1.5, 0))
+plot(res$calc[res$calc$colour != 1, "x"], res$calc[res$calc$colour != 1, "y"], cex = 0.1, col = "red", main = stringr::str_interp('Pi calculated: ${res$pi}'), col.main = "white")
+points(res$calc[res$calc$colour == 1, "x"], res$calc[res$calc$colour == 1, "y"], cex = 0.1, col = "green")
+```
+
+<div align="center"><img src="/figures/cs-Cpp_files/figure-html/monte-carlo-visualise-pi-1.png" style="display: block; margin: auto;" /></div>
+
+
+What is going on here? How does this work? Well what in essence we are doing is the more iterations we run the more we cover the surface area of this construct. Thus we are in fact building a surface area. If we keep track of these surface areas and which belongs to the circle we can calculate Pi by taking the ratio of these.
+
+Can you think of a way of bettering this algorithm? What we see here is white noise, meaning there is nothing stopping these points from falling on top of each other. A duplicate point, however unlikely, brings no new information to the simulation. If we somehow stop ourselves from creating a duplicate point we can possibly decrease the number of iterations it would take to produce a precise result. I leave this exercise to the reader.
+

@@ -17,4 +17,6 @@ int main() {
 	
 	score = (int) score % 3;
 	std::cout << score << std::endl;
+	
+	return 0;
 }
