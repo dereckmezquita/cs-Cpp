@@ -26,14 +26,14 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 NumericVector fibonacci_cpp(int n) {
-	NumericVector vec(n);
-	
-	vec[1] = 1;
-	for(int i = 1; i < n; i++) {
-		vec[i + 1] = vec[i - 1] + vec[i];
-	}
-	
-	return vec;
+    NumericVector vec(n);
+    
+    vec[1] = 1;
+    for(int i = 1; i < n; i++) {
+        vec[i + 1] = vec[i - 1] + vec[i];
+    }
+    
+    return vec;
 }
 ```
 
@@ -93,7 +93,7 @@ A basic `C++` document would like this; note the function structure - parenthesi
 #include <iostream> // library
 
 int main() { // declare the type returned; and main function
-	// do something
+    // do something
 }
 ```
 
@@ -108,9 +108,9 @@ As stated before `C++` is a compiled language. This means we will often follow t
 1. Write programme.
 1. Save programme.
 1. Compile programme.
-	1. If error; read error, go back to step 1.
+    1. If error; read error, go back to step 1.
 1. Execute programme.
-	1. If error; read error, go back to step 1.
+    1. If error; read error, go back to step 1.
 
 So I previously showed you what some of the code looks like. Why don't I explain to you some of the magic of how to actually compile a programme?
 
@@ -123,7 +123,7 @@ So what you typically do as we said; is we write the progamme, let's write one:
 #include <iostream>
 
 int main() {
-	std::cout << "Hello world." << std::endl;
+    std::cout << "Hello world." << std::endl;
 }
 ```
 
@@ -149,7 +149,7 @@ So let's try it:
 echo '#include <iostream>
 
 int main() {
-	std::cout << "Hello world." << std::endl;
+    std::cout << "Hello world." << std::endl;
 }' > ./cpp/hello.cpp
 
 c++ ./cpp/hello.cpp -o ./cpp/hello
@@ -175,7 +175,7 @@ rm ./cpp/hello
 ## #include <iostream>
 ## 
 ## int main() {
-## 	std::cout << "Hello world." << std::endl;
+##     std::cout << "Hello world." << std::endl;
 ## }
 ```
 
@@ -191,7 +191,7 @@ If you want to write a bit of code that will be repeated n amount of times, in `
 ```cpp
 int times = 100;
 for(int i = 0; i < times; i++) {
-	// do something
+    // do something
 }
 ```
 
@@ -207,11 +207,11 @@ Here is a simple for loop, prints hello followed by the iterator 3 times.
 #include <iostream>
 
 int main() {
-	for(int i = 1; i <= 3; i++) {
-		std::cout << "Hello " << i << std::endl;
-	}
-	
-	return 0;
+    for(int i = 1; i <= 3; i++) {
+        std::cout << "Hello " << i << std::endl;
+    }
+    
+    return 0;
 }
 ```
 
@@ -225,12 +225,12 @@ Here we echo the code into a document and then compile it. Note the `-S` argumen
 
 ```bash
 echo 'int main() {
-	int i;
-	for(i = 1; i <= 3; i++) {
-		int x = i;
-	}
-	
-	return i;
+    int i;
+    for(i = 1; i <= 3; i++) {
+        int x = i;
+    }
+    
+    return i;
 }' > ./cpp/print_loop.cpp
 
 c++ ./cpp/print_loop.cpp -o ./cpp/print_loop.asm -S
@@ -245,36 +245,36 @@ cat ./cpp/print_loop.asm
 ```
 
 ```asm
-	.section	__TEXT,__text,regular,pure_instructions
-	.build_version macos, 11, 0	sdk_version 11, 3
-	.globl	_main                           ## -- Begin function main
-	.p2align	4, 0x90
+    .section    __TEXT,__text,regular,pure_instructions
+    .build_version macos, 11, 0    sdk_version 11, 3
+    .globl    _main                           ## -- Begin function main
+    .p2align    4, 0x90
 _main:                                  ## @main
-	.cfi_startproc
+    .cfi_startproc
 ## %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	movl	$0, -4(%rbp)
-	movl	$1, -8(%rbp)
+    pushq    %rbp
+    .cfi_def_cfa_offset 16
+    .cfi_offset %rbp, -16
+    movq    %rsp, %rbp
+    .cfi_def_cfa_register %rbp
+    movl    $0, -4(%rbp)
+    movl    $1, -8(%rbp)
 LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
-	cmpl	$3, -8(%rbp)
-	jg	LBB0_4
+    cmpl    $3, -8(%rbp)
+    jg    LBB0_4
 ## %bb.2:                               ##   in Loop: Header=BB0_1 Depth=1
-	movl	-8(%rbp), %eax
-	movl	%eax, -12(%rbp)
+    movl    -8(%rbp), %eax
+    movl    %eax, -12(%rbp)
 ## %bb.3:                               ##   in Loop: Header=BB0_1 Depth=1
-	movl	-8(%rbp), %eax
-	addl	$1, %eax
-	movl	%eax, -8(%rbp)
-	jmp	LBB0_1
+    movl    -8(%rbp), %eax
+    addl    $1, %eax
+    movl    %eax, -8(%rbp)
+    jmp    LBB0_1
 LBB0_4:
-	movl	-8(%rbp), %eax
-	popq	%rbp
-	retq
-	.cfi_endproc
+    movl    -8(%rbp), %eax
+    popq    %rbp
+    retq
+    .cfi_endproc
                                         ## -- End function
 .subsections_via_symbols
 ```
@@ -320,7 +320,7 @@ What even is memory? What is information? How is information stored? When workin
 We also work with other kinds of numbers, decimal numbers; technically base 10 numbers. This refers to the fact that there are 10 symbols which are used for counting. These are 0 to 9.
 
 <!-- $$
-	0,\,1,\,2,\,3,\,4,\,5,\,6,\,7,\,8,\,9
+    0,\,1,\,2,\,3,\,4,\,5,\,6,\,7,\,8,\,9
 $$ --> 
 
 <div align="center"><img src="svg/BNiS2Kzvhr.svg.png"></div>
@@ -338,7 +338,7 @@ You might be thinking if we only have two symbols 0 and 1, how can we count high
 Using bits in different combinations to represent numbers is something similar to what we already do with our own number system. Imagine 0 - 9; the numbers 1, 2 and 3 can be all placed next to each other to represent what we instinctively know as one-hundred twenty three.
 
 <!-- $$
-	123
+    123
 $$ --> 
 
 <div align="center"><img src="svg/52kZTYSyeo.svg.png"></div>
@@ -346,7 +346,7 @@ $$ -->
 Note that each digit in this number represents a place of value: 1 - hundreds place, 2 tens place, and 3 the ones place. So the solution here:
 
 <!-- $$
-	123 = 100 \times 1 + 10 \times 2 + 1 \times 3
+    123 = 100 \times 1 + 10 \times 2 + 1 \times 3
 $$ --> 
 
 <div align="center"><img src="svg/Z9tMp0gQpc.svg.png"></div>
@@ -354,8 +354,8 @@ $$ -->
 The binary system is the same expect they don't use 9 symbols but 2! We have the number 10 to represent our 10 symbols (0 - 9) and the 2 the two of the computer (0 - 1). These exponents are in essence telling us how many values each place can represent; 10 ^ 2 = 100.
 
 <!-- $$
-	 10 ^ 2, 10 ^ 1, 10 ^ 0 \\
-	 2 ^ 2, 2 ^ 1, 2 ^ 0 
+     10 ^ 2, 10 ^ 1, 10 ^ 0 \\
+     2 ^ 2, 2 ^ 1, 2 ^ 0 
 $$ --> 
 
 <div align="center"><img src="svg/qgPiL2eAbx.svg.png"></div>
@@ -406,25 +406,25 @@ Let's start with some numbers. You can declare a number first, then attribute a 
 #include <iostream>
 
 int main() {
-	int yeet; // declare yeet
-	
-	yeet = 1; // set equal to 1
-	
-	std::cout << yeet << std::endl;
-	
-	yeet = 2; // reset to 2
-	
-	std::cout << yeet << std::endl;
-	
-	int zoot = 131; // declare and set zoot
-	
-	std::cout << zoot << std::endl;
-	
-	int xoot = yeet + zoot; // declare and set xoot as sum of yeet + zoot
-	
-	std::cout << xoot << std::endl;
-	
-	return 0;
+    int yeet; // declare yeet
+    
+    yeet = 1; // set equal to 1
+    
+    std::cout << yeet << std::endl;
+    
+    yeet = 2; // reset to 2
+    
+    std::cout << yeet << std::endl;
+    
+    int zoot = 131; // declare and set zoot
+    
+    std::cout << zoot << std::endl;
+    
+    int xoot = yeet + zoot; // declare and set xoot as sum of yeet + zoot
+    
+    std::cout << xoot << std::endl;
+    
+    return 0;
 }
 ```
 
@@ -454,24 +454,24 @@ In `C++` we have these as the following primitive arithmetic operators. Primitiv
 #include <iostream>
 
 int main() {
-	double score = 0;
-	
-	score = score + 20;
-	std::cout << score << std::endl;
-	
-	score = score - 2;
-	std::cout << score << std::endl;
-	
-	score = score * 3;
-	std::cout << score << std::endl;
-	
-	score = score / 2;
-	std::cout << score << std::endl;
-	
-	score = (int) score % 3;
-	std::cout << score << std::endl;
-	
-	return 0;
+    double score = 0;
+    
+    score = score + 20;
+    std::cout << score << std::endl;
+    
+    score = score - 2;
+    std::cout << score << std::endl;
+    
+    score = score * 3;
+    std::cout << score << std::endl;
+    
+    score = score / 2;
+    std::cout << score << std::endl;
+    
+    score = (int) score % 3;
+    std::cout << score << std::endl;
+    
+    return 0;
 }
 ```
 
@@ -494,7 +494,7 @@ What even is the quadratic formula? Well a quadratic formula is a mathematical f
 I know, never define a word by using the word in the definition! Stick with me. A quadratic (meaning square or 4 in latin) equation is an equation that fits the form of:
 
 <!-- $$
-	ax ^ 2 + bx + c = 0
+    ax ^ 2 + bx + c = 0
 $$ --> 
 
 <div align="center"><img src="svg/vXE04zzSIW.svg.png"></div>
@@ -509,7 +509,7 @@ Shifting the values of `a, b, c` is what defines different quadratic functions.
 Note that if a is equal to zero then the equation simply becomes linear: 
 
 <!-- $$
-	bx + c = 0
+    bx + c = 0
 $$ --> 
 
 <div align="center"><img src="svg/LJfYOEmbYs.svg.png"></div>
@@ -529,15 +529,15 @@ Let's dissect the following code. This is 99% `C++` with a little bit of `Rcpp` 
 
 // [[Rcpp::export]]
 std::vector<double> quadraticReturnY(std::vector<double> x, double a, double b, double c) {
-	int n = x.size();
-	
-	std::vector<double> y(n);
-	
-	for(int i = 0; i < n; i++) {
-		y[i] = (a * (x[i] * x[i])) + (b * x[i]) + c;
-	}
-	
-	return y;
+    int n = x.size();
+    
+    std::vector<double> y(n);
+    
+    for(int i = 0; i < n; i++) {
+        y[i] = (a * (x[i] * x[i])) + (b * x[i]) + c;
+    }
+    
+    return y;
 }
 ```
 
@@ -579,16 +579,16 @@ head(df, 5)
 
 ```r
 if(df$y[which.max(abs(df$y))] > 0) {
-	lim <- c(-15, NA)
+    lim <- c(-15, NA)
 } else {
-	lim <- c(NA, 15)
+    lim <- c(NA, 15)
 }
 
 ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
-	ggplot2::geom_line() + 
-	ggplot2::scale_y_continuous(limits = lim) +
-	ggplot2::geom_hline(yintercept = c, linetype = "dashed", colour = "goldenrod", size = 1) +
-	ggplot2::labs(title = "A classic quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
+    ggplot2::geom_line() + 
+    ggplot2::scale_y_continuous(limits = lim) +
+    ggplot2::geom_hline(yintercept = c, linetype = "dashed", colour = "goldenrod", size = 1) +
+    ggplot2::labs(title = "A classic quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
 <div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-classic-quadratic-1.png" style="display: block; margin: auto;" /></div>
@@ -607,9 +607,9 @@ y <- quadraticReturnY(x, a, b, c)
 df <- data.frame(x = x, y = y)
 
 ggplot2::ggplot(df, ggplot2::aes(x, y)) +
-	ggplot2::geom_line() + 
-	ggplot2::geom_hline(yintercept = -4, linetype = "dashed", colour = "goldenrod", size = 1) +
-	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
+    ggplot2::geom_line() + 
+    ggplot2::geom_hline(yintercept = -4, linetype = "dashed", colour = "goldenrod", size = 1) +
+    ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
 <div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" /></div>
@@ -625,7 +625,7 @@ Note if your parabola is shifted above the x-axis it's possible you have no real
 Let's implement this formula for calculating a solution to the above shown parabola.
 
 <!-- $$
-	x = \frac{-b \pm \sqrt{b ^ 2 - 4ac}}{2a}
+    x = \frac{-b \pm \sqrt{b ^ 2 - 4ac}}{2a}
 $$ --> 
 
 <div align="center"><img src="svg/5fksnRSUI6.svg.png"></div>
@@ -638,13 +638,13 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 std::vector<double> quadraticRoots(double a, double b, double c) {
-	
-	std::vector<double> x(2);
-	
-	x[0] = (-b + std::sqrt((b * b) - (4 * a * c))) / (2 * a);
-	x[1] = (-b - std::sqrt((b * b) -( 4 * a * c))) / (2 * a);
-	
-	return x;
+    
+    std::vector<double> x(2);
+    
+    x[0] = (-b + std::sqrt((b * b) - (4 * a * c))) / (2 * a);
+    x[1] = (-b - std::sqrt((b * b) -( 4 * a * c))) / (2 * a);
+    
+    return x;
 }
 ```
 
@@ -664,10 +664,10 @@ Here's the same plot again, with the points we just calculated as red circles! A
 df2 <- data.frame(x = quadraticRoots(a, b, c), y = rep(0))
 
 ggplot2::ggplot() +
-	ggplot2::geom_line(data = df, ggplot2::aes(x, y)) +
-	ggplot2::geom_point(data = df2, ggplot2::aes(x, y), colour = "red", size = 5, alpha = 0.5) +
-	ggplot2::geom_hline(yintercept = -4, linetype = "dashed", colour = "goldenrod", size = 1) +
-	ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
+    ggplot2::geom_line(data = df, ggplot2::aes(x, y)) +
+    ggplot2::geom_point(data = df2, ggplot2::aes(x, y), colour = "red", size = 5, alpha = 0.5) +
+    ggplot2::geom_hline(yintercept = -4, linetype = "dashed", colour = "goldenrod", size = 1) +
+    ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
 <div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" /></div>
@@ -681,18 +681,18 @@ In `C++` conditonals and control flow is pretty straight forward as in most lang
 #include <iostream>
 
 int main() {
-	bool yeet = true;
-	std::string mom_location = "home";
-	int people = 9;
-	
-	if(yeet & (mom_location != "home")) {
-		std::cout << "Mother's home no yeeting!" << std::endl;
-	} else if(((bool) people % 3) & yeet) {
-		std::cout << "We have enough yeets for all and mother is not home! YEET!" << std::endl;
-	} else {
-		std::cout << "We don't have enough yeets, but we have some!" << std::endl;
-	}
-	return 0;
+    bool yeet = true;
+    std::string mom_location = "home";
+    int people = 9;
+    
+    if(yeet & (mom_location != "home")) {
+        std::cout << "Mother's home no yeeting!" << std::endl;
+    } else if(((bool) people % 3) & yeet) {
+        std::cout << "We have enough yeets for all and mother is not home! YEET!" << std::endl;
+    } else {
+        std::cout << "We don't have enough yeets, but we have some!" << std::endl;
+    }
+    return 0;
 }
 ```
 
@@ -722,26 +722,26 @@ The case keyword checks if the expression fed matches the value after. Break tel
 #include <random>
 
 int main() {
-	int bedrooms = 9;
-	
-	switch(bedrooms) {
-		case 1 :
-			std::cout << "The house is cheap" << std::endl;
-			break;
-		case 2 :
-			std::cout << "Starter home" << std::endl;
-			break;
-		case 3 :
-			std::cout << "Mid sized house for a family." << std::endl;
-			break;
-		case 4 :
-			std::cout << "Okay big house!" << std::endl;
-			break;
-		default :
-			std::cout << "Why do you need so many rooms!?" << std::endl;
-			break;
-	}
-	return 0;
+    int bedrooms = 9;
+    
+    switch(bedrooms) {
+        case 1 :
+            std::cout << "The house is cheap" << std::endl;
+            break;
+        case 2 :
+            std::cout << "Starter home" << std::endl;
+            break;
+        case 3 :
+            std::cout << "Mid sized house for a family." << std::endl;
+            break;
+        case 4 :
+            std::cout << "Okay big house!" << std::endl;
+            break;
+        default :
+            std::cout << "Why do you need so many rooms!?" << std::endl;
+            break;
+    }
+    return 0;
 }
 ```
 
@@ -768,9 +768,9 @@ And so on.
 #include <iostream>
 
 int main() {
-	std::cout << "1 < 2 && 2 > 3: " << (1 < 2 && 2 > 3) << std::endl;
-	std::cout << "1 < 2 || 2 > 3: " << (1 < 2 || 2 > 3) << std::endl;
-	return 0;
+    std::cout << "1 < 2 && 2 > 3: " << (1 < 2 && 2 > 3) << std::endl;
+    std::cout << "1 < 2 || 2 > 3: " << (1 < 2 || 2 > 3) << std::endl;
+    return 0;
 }
 ```
 
@@ -793,13 +793,13 @@ Let's try a while loop. Here we will calculate the square of a number i from 0 t
 #include <iostream>
 
 int main() {
-	int i = 0;
-	
-	while(i < 10) {
-		std::cout << i << " " << i * i << std::endl;
-		i++;
-	}
-	return 0;
+    int i = 0;
+    
+    while(i < 10) {
+        std::cout << i << " " << i * i << std::endl;
+        i++;
+    }
+    return 0;
 }
 ```
 
@@ -829,10 +829,10 @@ Let's make one with slightly different parameters just to see what we can do.
 #include <iostream>
 
 int main() {
-	for(int i = 26; i > 14; i -= 4) {
-		std::cout << i << std::endl;
-	}
-	return 0;
+    for(int i = 26; i > 14; i -= 4) {
+        std::cout << i << std::endl;
+    }
+    return 0;
 }
 ```
 
@@ -861,8 +861,8 @@ Errors are often encountered for a few different kinds of reasons:
 #include <iostream>
 
 int main() {
-	int yeet = "nope";
-	return 0;
+    int yeet = "nope";
+    return 0;
 }
 ```
 
@@ -883,9 +883,9 @@ Linker errors look a little more like this:
 cat '#include <iostream>
 
 int Main() {
-	int yeet = 1;
-	
-	return 0;
+    int yeet = 1;
+    
+    return 0;
 }' > ./cpp/linker-fail.cpp
 
 c++ ./cpp/linker-fail.cpp -o ./cpp/linker-fail
@@ -895,9 +895,9 @@ c++ ./cpp/linker-fail.cpp -o ./cpp/linker-fail
 ## cat: #include <iostream>
 ## 
 ## int Main() {
-## 	int yeet = 1;
-## 	
-## 	return 0;
+##     int yeet = 1;
+##     
+##     return 0;
 ## }: No such file or directory
 ## Undefined symbols for architecture arm64:
 ##   "_main", referenced from:
@@ -962,13 +962,13 @@ In order to use vectors you need to use the `vector` header from the `stl`.
 #include <vector>
 
 int main() {
-	std::vector<int> vec(3);
-	
-	for(int i = 0; i < 3; i++) {
-		vec[i] = i * 3;
-	}
-	
-	std::cout << vec[1] << std::endl;
+    std::vector<int> vec(3);
+    
+    for(int i = 0; i < 3; i++) {
+        vec[i] = i * 3;
+    }
+    
+    std::cout << vec[1] << std::endl;
 }
 ```
 
@@ -986,9 +986,9 @@ In the above example we are very simply initialising a vector of size 3. You can
 #include <vector>
 
 int main() {
-	std::vector<double> coord = {94.87422, 84.29302};
-	
-	std::cout << coord[0] << std::endl;
+    std::vector<double> coord = {94.87422, 84.29302};
+    
+    std::cout << coord[0] << std::endl;
 }
 ```
 
@@ -1013,19 +1013,19 @@ If you come from a functional programming language this may be a bit weird. But 
 std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
 
 int main() {
-	std::vector<std::string> dna = {"ATG", "CAA"};
-	
-	std::cout << dna[dna.size() - 1] << std::endl;
-	
-	dna.push_back("HIYA");
-	
-	std::cout << dna[dna.size() - 1] << std::endl;
-	
-	dna.pop_back();
-	
-	std::cout << dna[dna.size() - 1] << std::endl;
-	
-	return 0;
+    std::vector<std::string> dna = {"ATG", "CAA"};
+    
+    std::cout << dna[dna.size() - 1] << std::endl;
+    
+    dna.push_back("HIYA");
+    
+    std::cout << dna[dna.size() - 1] << std::endl;
+    
+    dna.pop_back();
+    
+    std::cout << dna[dna.size() - 1] << std::endl;
+    
+    return 0;
 }
 ```
 
@@ -1047,23 +1047,23 @@ Note that we do `dna.size() - 1` to get the last element of the vector. This is 
 #include <vector>
 
 int main() {
-	std::vector<int> vec = {2, 4, 3, 6, 1, 9};
-	
-	int even_sum = 0;
-	int odd_prod = 1;
-	
-	for(int i = 0; i < vec.size(); i++) {
-		if(vec[i] % 2 == 0) {
-			even_sum += vec[i];
-		} else {
-			odd_prod *= vec[i];
-		}
-	}
-	
-	std::cout << even_sum << std::endl;
-	std::cout << odd_prod << std::endl;
-	
-	return 0;
+    std::vector<int> vec = {2, 4, 3, 6, 1, 9};
+    
+    int even_sum = 0;
+    int odd_prod = 1;
+    
+    for(int i = 0; i < vec.size(); i++) {
+        if(vec[i] % 2 == 0) {
+            even_sum += vec[i];
+        } else {
+            odd_prod *= vec[i];
+        }
+    }
+    
+    std::cout << even_sum << std::endl;
+    std::cout << odd_prod << std::endl;
+    
+    return 0;
 }
 ```
 
@@ -1090,7 +1090,7 @@ symbols(x = 0, y = 0, circles = 5, inches = FALSE, add = TRUE, fg = "white")
 Now throw some darts at this target, your dart must land within the square. When hitting the board there is a possibility it will be inside the circle, and if not then inside the square (edges). Note that without knowing Pi we can calculate if anyone of these points are inside the circle or not using the Pythagorean Theorem.
 
 <!-- $$
-	d = \sqrt{(x_2 - x_1) ^ 2 + (y_2 - y_1) ^ 2}
+    d = \sqrt{(x_2 - x_1) ^ 2 + (y_2 - y_1) ^ 2}
 $$ --> 
 
 <div align="center"><img src="svg/QJtQpgdOi2.svg.png"></div>
@@ -1111,11 +1111,11 @@ points(4, 4, col = "red", pch = 19, cex = 2)
 <div align="center"><img src="/figures/cs-Cpp_files/figure-html/monte-carlo-point-placement-1.png" style="display: block; margin: auto;" /></div>
 
 <!-- $$
-	radius = 5 \\
-	p_1 = (3,\,3) \\
-	p_2 = (4,\,4) \\
-	d_1 = \sqrt{(3 - 0) ^ 2 + (3 - 0) ^ 2} = 4.242641 \\
-	d_1 = \sqrt{(4 - 0) ^ 2 + (4 - 0) ^ 2} = 5.656854
+    radius = 5 \\
+    p_1 = (3,\,3) \\
+    p_2 = (4,\,4) \\
+    d_1 = \sqrt{(3 - 0) ^ 2 + (3 - 0) ^ 2} = 4.242641 \\
+    d_1 = \sqrt{(4 - 0) ^ 2 + (4 - 0) ^ 2} = 5.656854
 $$ --> 
 
 <div align="center"><img src="svg/dZgh9xsvrs.svg.png"></div>
@@ -1141,30 +1141,30 @@ std::mt19937_64 rng(std::chrono::steady_clock::now().time_since_epoch().count())
 
 // [[Rcpp::export]]
 List monteCarloPi(double iterations) {
-	NumericVector x(iterations);
-	NumericVector y(iterations);
-	NumericVector colour(iterations);
-	
-	double circle = 0;
-	double width = 1;
-	
-	for(int i = 0; i < iterations; i++) {
-		x[i] = std::uniform_real_distribution<double>(0, width)(rng);
-		y[i] = std::uniform_real_distribution<double>(0, width)(rng);
-		
-		if(std::sqrt(x[i] * x[i] + y[i] * y[i]) <= width) {
-			circle++;
-			colour[i] = 1;
-		} else {
-			colour[i] = 0;
-		}
-	}
-	
-	double pi = (circle / iterations) * 4.0;
-	
-	DataFrame df = DataFrame::create(_["x"] = x, _["y"] = y, _["colour"] = colour);
-	
-	return List::create(_["pi"] = pi, _["calc"] = df);
+    NumericVector x(iterations);
+    NumericVector y(iterations);
+    NumericVector colour(iterations);
+    
+    double circle = 0;
+    double width = 1;
+    
+    for(int i = 0; i < iterations; i++) {
+        x[i] = std::uniform_real_distribution<double>(0, width)(rng);
+        y[i] = std::uniform_real_distribution<double>(0, width)(rng);
+        
+        if(std::sqrt(x[i] * x[i] + y[i] * y[i]) <= width) {
+            circle++;
+            colour[i] = 1;
+        } else {
+            colour[i] = 0;
+        }
+    }
+    
+    double pi = (circle / iterations) * 4.0;
+    
+    DataFrame df = DataFrame::create(_["x"] = x, _["y"] = y, _["colour"] = colour);
+    
+    return List::create(_["pi"] = pi, _["calc"] = df);
 }
 ```
 
