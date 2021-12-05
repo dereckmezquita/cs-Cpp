@@ -101,6 +101,7 @@ In our previous example we wrote: `std::cout << "Hello world!"`. This comes from
 
 **Important: ALL* lines in `C++` must be ended with a semi-colon - ;**. All statements that is. *In some cases like the end curly of a function we do not for example.
 
+
 ## Workflow
 
 As stated before `C++` is a compiled language. This means we will often follow this routine of: 
@@ -918,12 +919,12 @@ Just because a programme compiles and links does not mean it is safe. These erro
 
 int main() {
   
-  int width = 20;
-  int length = 0;
+    int width = 20;
+    int length = 0;
   
-  int ratio = width / length;
+    int ratio = width / length;
   
-  std::cout << ratio << std::endl;
+    std::cout << ratio << std::endl;
 }
 ```
 
@@ -1072,6 +1073,30 @@ int main() {
 ## 27
 ```
 
+#### Vectors tricks and tips
+
+Initialise and return a vector on one line:
+
+
+```cpp
+#include <iostream>
+#include <vector>
+
+std::vector<int> first_three_multiples(int num) {
+    return {(num * 1), (num * 2), (num * 3)};
+}
+
+int main() {
+    std::vector<int> res = first_three_multiples(3);
+    std::cout << res[1] << std::endl;
+    return 0;
+}
+```
+
+```
+## 6
+```
+
 
 ## Project: calculate pi with Monte Carlo
 
@@ -1195,4 +1220,290 @@ points(res$calc[res$calc$colour == 1, "x"], res$calc[res$calc$colour == 1, "y"],
 What is going on here? How does this work? Well what in essence we are doing is the more iterations we run the more we cover the surface area of this construct. Thus we are in fact building a surface area. If we keep track of these surface areas and which belongs to the circle we can calculate Pi by taking the ratio of these.
 
 Can you think of a way of bettering this algorithm? What we see here is white noise, meaning there is nothing stopping these points from falling on top of each other. A duplicate point, however unlikely, brings no new information to the simulation. If we somehow stop ourselves from creating a duplicate point we can possibly decrease the number of iterations it would take to produce a precise result. I leave this exercise to the reader.
+
+
+### Arrays
+
+Vectors are a modern imagining of an array. `C++` also inherits a more low-level data structure called an array from the parent language `C`.
+
+Arrays allow us to store elements of information in an indexed data structure but are lower-level constructs. Indeed, vectors are built on top of arrays. Arrays require a bit more work but allow for greater control and typically with good code better performance.
+
+What are some of the differences between the two?
+
+1. Array sizes cannot be changed.
+1. Elements cannot be deleted or removed; a consequence of n. 1.
+
+
+In order to declare an array keep in mind two different pieces of information:
+
+1. The data type contained.
+1. How many elements it will hold.
+
+Declaring an array is done like declaring other variables except we provide brackets with the number of elements.
+
+Remember our Fibonacci hello world? Let's re-do it with arrays.
+
+
+```cpp
+#include <iostream>
+
+int n = 10;
+
+int main() {
+    int fib[n]; // create array of size n; type int
+    fib[0] = 0;
+    fib[1] = 1;
+    
+    for(int i = 1; i < n; i++) {
+        fib[i + 1] = fib[i - 1] + fib[i];
+    }
+    
+    for(int i = 0; i < n; i++) {
+        std::cout << fib[i] << std::endl;
+    }
+    
+    return 0;
+}
+```
+
+```
+## 0
+## 1
+## 1
+## 2
+## 3
+## 5
+## 8
+## 13
+## 21
+## 34
+```
+
+## Functions
+
+Every `C++` programme has at least one function; indeed `int main() { }` is a function. We will learn a bit more on this.
+
+`C++` comes with a bunch of functions; think of the standard library `stl`. We can gain access to these by including the appropriate headers, as we covered previously this simply pastes the code from these libraries at the top of our code.
+
+### Declare and define
+
+In order to create a function we need to declare it and define it. This happens in two parts. First we declare the name, the type, and arguments that function should return, then we define the body; what it does inside curlies `{ }`.
+
+
+```cpp
+#include <iostream>
+#include <vector>
+
+std::vector<int> return_int_n_times(int num, int times) { // type and name; arguments
+    std::vector<int> vec(times, num); // create vector of n size filled with x element by default
+    return vec;
+}
+
+int main() {
+    std::vector<int> res = return_int_n_times(3, 5); // results from function to res
+    
+    for(int i = 0; i < res.size(); i++) {
+        std::cout << res[i] << std::endl;
+    }
+    
+    return 0;
+}
+```
+
+```
+## 3
+## 3
+## 3
+## 3
+## 3
+```
+
+Type declarations are important as you've noticed. So what do we do when we just want a function that's primary use is it's secondary effects; ie. printing something? Well we can declare a function that returns void. Let's use our previous function, and create a new which will simple print all of the results to a single line separated by commas.
+
+As you can see you can declare functions that have multiple arguments; you have to remember the order of the arguments that are input. 
+
+
+```cpp
+#include <iostream>
+#include <vector>
+
+std::vector<int> return_int_n_times(int num, int times) { // type and name; arguments
+    std::vector<int> vec(times, num); // create vector of n size filled with x element by default
+    return vec;
+}
+
+void print_vec(std::vector<int> vec) { // void because nothing is returned it simple prints
+    int i = 0;
+    
+    while(i < vec.size()) {
+        std::cout << vec[i]; // print i element
+        
+        if(i != (vec.size() - 1)) { // check we are not at end
+            std::cout << ", "; // if not at end print ", "
+        }
+        
+        i++; // increase i
+    }
+    
+    std::cout << std::endl;
+}
+
+int main() {
+    std::vector<int> res = return_int_n_times(3, 5); // results from function to res
+    
+    // replace with print function
+    // for(int i = 0; i < res.size(); i++) {
+    //    std::cout << res[i] << std::endl;
+    // }
+    
+    print_vec(res);
+    
+    return 0;
+}
+```
+
+```
+## 3, 3, 3, 3, 3
+```
+
+### Functions and scope
+
+Scope is the region to which variables and objects in a programme are bound. You can typically view any curlies `{ }` as a sort of fence which bind variables and objects. If a variable is defined inside the scope of a function, this is said to be defined locally to that function. Thus calling any variables from outside that function's scope would not work.
+
+```cpp
+#include <iostream>
+
+void some_func() {
+    std::string some_var = "yeet";
+    
+    std::cout << "Hi" << std::endl;
+}
+
+int main() {
+    some_func();
+    
+    std::cout << some_var << std::endl;
+}
+```
+
+```
+## ./cpp/chunk_24.cpp:12:15: error: use of undeclared identifier 'some_var'
+##         std::cout << some_var << std::endl;
+##                      ^
+## 1 error generated.
+```
+
+## Modules
+
+Programmes get bigger over time. In order to better manage our code we can define functions and other code in separate files then call them back into our main programme.
+
+The way this works is that before the programme we've written gets compiled it gets linked. The separate files and `#includes` we call get all pasted together. It's quite literally as if things get pasted together.
+
+In `C++` we can declare that a function exists; this allows us to compile our programme without it throwing an error. The function can be defined after and all will work well.
+
+
+```cpp
+#include <iostream>
+
+void long_complicated_function();
+
+int main() {
+    long_complicated_function();
+    
+    return 0;
+}
+
+void long_complicated_function() {
+    // do something really long and complicated
+    
+    std::cout << "Something long and complicated" << std::endl;
+}
+```
+
+```
+## Something long and complicated
+```
+
+### Linking modules
+
+Even if this allows us to better organise our code, it is not ideal. Use of modules and separate files is probably better. It allows us to use and re-use functions across different parts of our code in separate files.
+
+
+```bash
+echo '#include <iostream>
+
+void fun_from_other_file() {
+    std::cout << "Function from another file." << std::endl;
+}' > ./cpp/module.cpp
+
+echo 'void fun_from_other_file();
+
+int main() {
+    fun_from_other_file();
+}' > ./cpp/main-module-programme.cpp
+```
+
+
+
+```bash
+c++ ./cpp/main-module-programme.cpp ./cpp/module.cpp -o ./cpp/module-programme
+
+./cpp/module-programme
+rm ./cpp/module-programme
+```
+
+```
+## Function from another file.
+```
+
+### Custom headers
+
+If your programme gets very large you might want to separate parts into custom header files you can include with the `#include` keyword. This will avoid you having to declare the function at the top of your main programme and also not require you to manually link things in compilation.
+
+Header files should use the `.h` or `.hpp` extensions.
+
+
+```bash
+cp ./cpp/module.cpp ./cpp/module.h
+```
+
+Above we copied the same exact file, over to a new file and simply changed to the extension to `.h` for convention. Let's `#include` that in our code here:
+
+
+```cpp
+#include "module.h"
+
+int main() {
+    fun_from_other_file();
+    return 0;
+}
+```
+
+```
+## Function from another file.
+```
+
+### Inline functions
+
+The term inline can refer to multiple things; here we talk about inline in the context of functions. Inline functions are usually defined in a header file that is also qualified by the `inline` keyword as such:
+
+
+```cpp
+inline
+    void some_func() {
+        std::cout << "Hiya!" << std::endl;    
+    }
+```
+
+```
+## ./cpp/chunk_29.cpp:3:3: error: use of undeclared identifier 'std'
+##                 std::cout << "Hiya!" << std::endl;      
+##                 ^
+## ./cpp/chunk_29.cpp:3:27: error: use of undeclared identifier 'std'
+##                 std::cout << "Hiya!" << std::endl;      
+##                                         ^
+## 2 errors generated.
+```
+
+The `inline` keyword tells the compiler to insert the function's body where the function call is. This can be used if for example you define a function in one file f1, but then declare it (no body) in another file f2. Now imagine you want to use f2 as a header file: `#include "f2.h"`. You need to use the `inline` keyword in `f2` in order to have the body of the function pasted there.
 
