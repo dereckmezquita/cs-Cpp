@@ -18,6 +18,7 @@ Let's start with something simple; demonstrate that we can indeed write and comp
 
 Here is a function which generates the Fibonacci sequence to `n` elements.
 
+
 ```cpp
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -37,6 +38,7 @@ NumericVector fibonacci_cpp(int n) {
 }
 ```
 
+
 ```r
 fibonacci_cpp(20)
 ```
@@ -54,11 +56,12 @@ fibonacci_cpp(20)
 
 Printing "hello world" in typical `C++` would look something like this:
 
+
 ```cpp
 #include <iostream>
 
 int main() {
-  std::cout << "Hello World!" << std::endl;
+    std::cout << "Hello World!" << std::endl;
 }
 ```
 
@@ -204,6 +207,7 @@ Why don't we write a loop, compile it and then try to take a look at what the as
 
 Here is a simple for loop, prints hello followed by the iterator 3 times.
 
+
 ```cpp
 #include <iostream>
 
@@ -224,6 +228,8 @@ int main() {
 
 Here we echo the code into a document and then compile it. Note the `-S` argument this tells the compiler to output assembly code.
 
+
+
 ```bash
 echo 'int main() {
     int i;
@@ -240,6 +246,7 @@ c++ ./cpp/print_loop.cpp -o ./cpp/print_loop.asm -S
 So now we've saved the code to a document, and compiled it. Let's take a look. 
 
 **Note**: we've removed the print function and `<iostream>` from the code, as this includes a whole library which we don't really need. We just want to see what for loop looks like in assembly.
+
 
 ```bash
 cat ./cpp/print_loop.asm
@@ -284,9 +291,11 @@ In summary from the above we can see how compiling works. You write some code th
 
 The command would look something like this as we used above:
 
+
 ```bash
 c++ ./cpp/print_loop.cpp -o ./cpp/print_loop -S
 ```
+
 
 ## Data structures and data types
 
@@ -484,7 +493,9 @@ int main() {
 ## 0
 ```
 
+
 Notice in the last operation I put `(int)` before taking modulo 3, this is something called type casing and we will learn more about it in the future.
+
 
 ## Project: quadratic maths
 
@@ -651,6 +662,7 @@ std::vector<double> quadraticRoots(double a, double b, double c) {
 
 Wonderful as we can see the roots or solutions to this quadratic formula are these! Note that if you were to plot these as points on the graph where these correspond to the x value (if y = 0) then you would find that these are indeed the points where the parabola's arms cross the x-axis.
 
+
 ```r
 quadraticRoots(a, b, c)
 ```
@@ -660,6 +672,7 @@ quadraticRoots(a, b, c)
 ```
 
 Here's the same plot again, with the points we just calculated as red circles! Amazing!
+
 
 ```r
 df2 <- data.frame(x = quadraticRoots(a, b, c), y = rep(0))
@@ -717,6 +730,8 @@ If we start having a large number of conditions things can get convoluted. A `sw
 Note a switch must always evaluate to a integral type: `int`, `char`, `short`, `long`, `long long`, `enum`.
 
 The case keyword checks if the expression fed matches the value after. Break tells the computer to exit the block and not run the other cases. At the end there is a default case as a catch all.
+
+
 
 ```cpp
 #include <iostream>
@@ -858,6 +873,7 @@ Errors are often encountered for a few different kinds of reasons:
 
 ### Compile time errors
 
+
 ```cpp
 #include <iostream>
 
@@ -868,9 +884,9 @@ int main() {
 ```
 
 ```
-## ./cpp/chunk_13.cpp:4:6: error: cannot initialize a variable of type 'int' with an lvalue of type 'const char [5]'
-##         int yeet = "nope";
-##             ^      ~~~~~~
+## ./cpp/chunk_13.cpp:4:9: error: cannot initialize a variable of type 'int' with an lvalue of type 'const char [5]'
+##     int yeet = "nope";
+##         ^      ~~~~~~
 ## 1 error generated.
 ```
 
@@ -879,6 +895,7 @@ The error message above shows very clearly what the mistake was. We're declaring
 ### Link time errors
 
 Linker errors look a little more like this:
+
 
 ```bash
 cat '#include <iostream>
@@ -1096,7 +1113,6 @@ int main() {
 ```
 ## 6
 ```
-
 
 ## Project: calculate pi with Monte Carlo
 
@@ -1370,6 +1386,7 @@ int main() {
 
 Scope is the region to which variables and objects in a programme are bound. You can typically view any curlies `{ }` as a sort of fence which bind variables and objects. If a variable is defined inside the scope of a function, this is said to be defined locally to that function. Thus calling any variables from outside that function's scope would not work.
 
+
 ```cpp
 #include <iostream>
 
@@ -1387,9 +1404,9 @@ int main() {
 ```
 
 ```
-## ./cpp/chunk_24.cpp:12:15: error: use of undeclared identifier 'some_var'
-##         std::cout << some_var << std::endl;
-##                      ^
+## ./cpp/chunk_24.cpp:12:18: error: use of undeclared identifier 'some_var'
+##     std::cout << some_var << std::endl;
+##                  ^
 ## 1 error generated.
 ```
 
@@ -1496,12 +1513,12 @@ inline
 ```
 
 ```
-## ./cpp/chunk_29.cpp:3:3: error: use of undeclared identifier 'std'
-##                 std::cout << "Hiya!" << std::endl;      
-##                 ^
-## ./cpp/chunk_29.cpp:3:27: error: use of undeclared identifier 'std'
-##                 std::cout << "Hiya!" << std::endl;      
-##                                         ^
+## ./cpp/chunk_29.cpp:3:9: error: use of undeclared identifier 'std'
+##         std::cout << "Hiya!" << std::endl;    
+##         ^
+## ./cpp/chunk_29.cpp:3:33: error: use of undeclared identifier 'std'
+##         std::cout << "Hiya!" << std::endl;    
+##                                 ^
 ## 2 errors generated.
 ```
 

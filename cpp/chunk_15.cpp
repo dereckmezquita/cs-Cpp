@@ -2,10 +2,10 @@
 
 int main() {
   
-  int width = 20;
-  int length = 0;
+    int width = 20;
+    int length = 0;
   
-  int ratio = width / length;
+    int ratio = width / length;
   
-  std::cout << ratio << std::endl;
+    std::cout << ratio << std::endl;
 }

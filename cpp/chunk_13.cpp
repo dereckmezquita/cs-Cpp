@@ -1,6 +1,6 @@
 #include <iostream>
 
 int main() {
-	int yeet = "nope";
-	return 0;
+    int yeet = "nope";
+    return 0;
 }

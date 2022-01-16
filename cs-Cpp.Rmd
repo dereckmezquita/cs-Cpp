@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 knit: (function(inputFile, encoding) { 
       rmarkdown::render(inputFile,
                         encoding=encoding, 
-                        output_file=file.path(dirname(inputFile), "figures", "cs-Cpp.html")) })
+                        output_file=file.path(dirname(inputFile), "README.html")) })
 output:
   html_document: 
     fig_caption: yes
@@ -19,8 +19,6 @@ params:
 editor_options: 
   chunk_output_type: inline
 ---
-
-<a download="cs-Cpp.Rmd" href="`r base64enc::dataURI(file = params$rmd, mime = 'text/rmd', encoding = 'base64')`">R Markdown source file (to produce this document)</a>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 7, fig.align = "center")
@@ -50,7 +48,11 @@ knitr::knit_engines$set(Cpp = function(options) {
 })
 ```
 
-```{r libraries, warning=FALSE, message=FALSE}
+```{bash include=FALSE}
+rm -f ./cpp/*
+```
+
+```{r libraries, include=FALSE, warning=FALSE, message=FALSE}
 library("Rcpp")
 library("ggplot2")
 ```
@@ -110,7 +112,7 @@ Printing "hello world" in typical `C++` would look something like this:
 #include <iostream>
 
 int main() {
-  std::cout << "Hello World!" << std::endl;
+    std::cout << "Hello World!" << std::endl;
 }
 ```
 
@@ -1306,4 +1308,3 @@ inline
 ```
 
 The `inline` keyword tells the compiler to insert the function's body where the function call is. This can be used if for example you define a function in one file f1, but then declare it (no body) in another file f2. Now imagine you want to use f2 as a header file: `#include "f2.h"`. You need to use the `inline` keyword in `f2` in order to have the body of the function pasted there.
-
