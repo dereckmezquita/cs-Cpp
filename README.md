@@ -341,7 +341,7 @@ The reason for such a simple system is because of the fact that computers are bu
 
 Here we represent counting with a single bit. We are limited to counting with two symbols on or off, or 0 to 1. Let this dot represent a "light bulb", yellow means it's on or 1.
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/lightbulb-one-bit-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/lightbulb-one-bit-1.png" style="display: block; margin: auto;" /></div>
 
 You might be thinking if we only have two symbols 0 and 1, how can we count higher than 1? Well we could use more than one bit (value 0/1) in different combinations to represent different values.
 
@@ -374,7 +374,7 @@ So we humans have ones place, tens, then hundreds place. Computers with their bi
 
 If we have 1 bit we can count from 0 to 1. How high could we count if we have three bits?
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/lightbulb-three-bits-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/lightbulb-three-bits-1.png" style="display: block; margin: auto;" /></div>
 
 The above illustration shows us what it would be like to count with 3 bits. What we did was organise our bits in all possible combinations and these can be used to represent a numerical value. Note that we start counting at 0 and thus we can only get as high as 7 if we have 3 bits. The more bits you have the higher you can count.
 
@@ -603,7 +603,7 @@ ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
     ggplot2::labs(title = "A classic quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-classic-quadratic-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/plot-classic-quadratic-1.png" style="display: block; margin: auto;" /></div>
 
 Notice how if we shift the values we move the plot around:
 
@@ -624,7 +624,7 @@ ggplot2::ggplot(df, ggplot2::aes(x, y)) +
     ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/plot-shifted-quadratic-1.png" style="display: block; margin: auto;" /></div>
 
 So in the examples above we're asking the formula to give us back the `y` values for an array of `x`s.
 
@@ -684,7 +684,7 @@ ggplot2::ggplot() +
     ggplot2::labs(title = "A shifted quadratic plot", subtitle = stringr::str_interp('a = ${a}, b = ${b}, c = ${c}, x = [${min(x)} ... ${min(x)}]'))
 ```
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/plot-quadratic-solutions-1.png" style="display: block; margin: auto;" /></div>
 
 ## Conditionals and logic
 
@@ -1126,7 +1126,7 @@ symbols(x = 0, y = 0, squares = 10, inches = FALSE, add = TRUE, fg = "white")
 symbols(x = 0, y = 0, circles = 5, inches = FALSE, add = TRUE, fg = "white")
 ```
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/monte-carlo-circle-square-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/monte-carlo-circle-square-1.png" style="display: block; margin: auto;" /></div>
 
 Now throw some darts at this target, your dart must land within the square. When hitting the board there is a possibility it will be inside the circle, and if not then inside the square (edges). Note that without knowing Pi we can calculate if anyone of these points are inside the circle or not using the Pythagorean Theorem.
 
@@ -1149,7 +1149,7 @@ points(3, 3, col = "green", pch = 19, cex = 2)
 points(4, 4, col = "red", pch = 19, cex = 2)
 ```
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/monte-carlo-point-placement-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/monte-carlo-point-placement-1.png" style="display: block; margin: auto;" /></div>
 
 <!-- $$
     radius = 5 \\
@@ -1230,7 +1230,7 @@ plot(res$calc[res$calc$colour != 1, "x"], res$calc[res$calc$colour != 1, "y"], c
 points(res$calc[res$calc$colour == 1, "x"], res$calc[res$calc$colour == 1, "y"], cex = 0.1, col = "green")
 ```
 
-<div align="center"><img src="/figures/cs-Cpp_files/figure-html/monte-carlo-visualise-pi-1.png" style="display: block; margin: auto;" /></div>
+<div align="center"><img src="/figures/monte-carlo-visualise-pi-1.png" style="display: block; margin: auto;" /></div>
 
 
 What is going on here? How does this work? Well what in essence we are doing is the more iterations we run the more we cover the surface area of this construct. Thus we are in fact building a surface area. If we keep track of these surface areas and which belongs to the circle we can calculate Pi by taking the ratio of these.
